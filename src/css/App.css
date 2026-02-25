@@ -125,5 +125,5 @@ body {
     transition: opacity 0.4s ease;
 }
 .fade-out1.hidden {
-  display: none;
+  display:  none;
 }
