@@ -44,6 +44,10 @@ body {
     font-family: "rubik-bold";
     src: url("../assets/fonts/Rubik-Bold.ttf") format("truetype");
   }
+    @font-face {
+    font-family: "noot";
+    src: url("../assets/fonts/Noot.otf") format("truetype");
+  }
 .bahadEdu {
     position: absolute;
     top: 1rem;
