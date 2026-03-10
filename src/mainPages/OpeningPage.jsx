@@ -1,27 +1,55 @@
 import React, { useState } from "react";
 import "../css/OpeningPage.css";
+import { useNavigate } from "react-router-dom";
+import About from "../components/About";
 import UserDetails from "../components/UserDetails";
 
 function OpeningPage() {
+const navigate = useNavigate();
+
   const [page, setPage] = useState(1);
   const [fade, setFade] = useState("");
 
-  // פרטי המשתמש
   const [userName, setUserName] = useState("");
   const [course, setCourse] = useState("");
 
+  const courses = [
+    "משקית חינוך",
+    "רכזת חינוך",
+    "מדנית",
+    "קצינת חינוך",
+    "משקית הוראה"
+  ];
+
+  // בדיקת שם
+  const nameError =
+    userName && /\d/.test(userName)
+      ? "אין להזין מספרים בשם"
+      : "";
+  // האם הטופס תקין
+  const formValid =
+    userName.trim() !== "" &&
+    !nameError &&
+    course !== "";
+
   const goToSecondPage = () => {
     setFade("fade-out");
+
     setTimeout(() => {
       setPage(2);
       setFade("fade-in");
     }, 500);
   };
+  const startLearning = () => {
+  navigate("/content");
+};
 
   return (
+    
     <div className={`open-text-container ${fade}`}>
       {page === 1 && (
         <>
+         <About />
           <p className='opening-title'>לומדת השלמת טירונות חיל חינוך</p>
 
           <p className='opening-text bold'>ברוכים הבאים לחיל החינוך!</p>
@@ -44,12 +72,24 @@ function OpeningPage() {
       )}
 
       {page === 2 && (
-        <UserDetails
-          userName={userName}
-          setUserName={setUserName}
-          course={course}
-          setCourse={setCourse}
-        />
+        <>
+          <UserDetails
+            userName={userName}
+            setUserName={setUserName}
+            course={course}
+            setCourse={setCourse}
+            courses={courses}
+            nameError={nameError}
+          />
+
+          <button
+            className={`toIntro-btn ${!formValid ? "disabled-btn" : ""}`}
+            disabled={!formValid}
+            onClick={startLearning}
+          >
+            יאללה נתחיל!
+          </button>
+        </>
       )}
     </div>
   );
