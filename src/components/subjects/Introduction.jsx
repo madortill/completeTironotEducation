@@ -1,4 +1,5 @@
 import React from "react";
+import "../../css/Content.css";
 import nextBtn from "../../assets/images/introduction/nextBtn.png";
 import backBtn from "../../assets/images/introduction/backBtn.png";
 import meetEduImg from "../../assets/images/introduction/meetEduImg.png";
@@ -8,7 +9,7 @@ import IDFscrollImg from "../../assets/images/introduction/IDFscrollImg.png";
 
 function Introduction({ page, setPage, finishSubject }) {
 
-  const totalPages = 2; // מספר העמודים בנושא
+  const totalPages = 1; // מספר העמודים בנושא
 
   const handleNext = () => {
     if (page < totalPages - 1) {
@@ -39,11 +40,6 @@ function Introduction({ page, setPage, finishSubject }) {
         </div>
       )}
 
-      {page === 1 && (
-        <div className="page2">
-          <p>מלל של דף שני - המשך מבוא</p>
-        </div>
-      )}
 
       <div className="container-buttons">
         <img

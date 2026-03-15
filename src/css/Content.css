@@ -18,24 +18,43 @@
 .disabled {
     opacity: 0.5;
 }
+/* 
 .page1 {
-    display: flex;
+     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.title-content {
-    font-family: "noot";
-    color: #004288;
-    font-size: 2rem;
-    /* padding: 2rem; */
-    margin-top: 2.5rem;
     text-align: center;
+    
+} */
+.title-chapter {
+    font-family: "noot";
+    color: #477FA3;
+    font-size: 1.4rem;
+    margin-top: 2rem;
 }
+
+.title-content-chapter {
+   font-family: "noot";
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: #004288;
+    padding: 0rem 1rem;  
+}
+
+.title-content {
+   font-family: "noot";
+    font-size: 2rem;
+    margin-top: 2rem;
+    color: #004288;
+    padding: 0rem 1rem;  
+}
+
 .sec-title-content {
     font-family: "rubik-bold";
     color: #477FA3;
     font-size: 1.2rem;
     margin-top: 0.5rem;
+    padding: 0rem 1rem;   /* גם כאן */
 }
 
 /* intro */

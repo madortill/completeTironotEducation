@@ -110,6 +110,7 @@ function Content() {
         completedSubjects={completedSubjects}
       />
       {renderSubject()}
+
     </div>
   );
 }
