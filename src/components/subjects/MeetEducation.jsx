@@ -59,7 +59,9 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
 
       {page === 1 && (
         <div className="page2">
-          <p>מלל של דף שני - עוד מידע על החיל</p>
+          <p className="title-content">משמעות הסמל</p>
+          <p className="sec-title-content">בלומדה יש שלושה נושאים</p>
+                    
         </div>
       )}
 

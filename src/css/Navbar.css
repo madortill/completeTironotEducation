@@ -1,3 +1,9 @@
+
+.phone-navbar {
+  width: 430px;
+  display: flex;
+ 
+}
 .the-stripe-topic {
   display: flex;
   background-color: #477FA3;
@@ -6,34 +12,24 @@
   align-items: center;
   justify-content: center;
   height: 4.5rem;
-  top: 0;
+  padding: 0 1rem; 
   width: 100%;
+  /* flex: 1; */
   box-sizing: border-box;
-  position: relative; /* חשוב אם יש אלמנטים מוחלטים בתוכו */
-  padding: 0 1rem;   /* קצת מרווח מצדדים */
 }
 
 /* הטקסט ייתפס כל הרוחב ויתרכז */
 .subj-text {
-  flex: 1;              /* תופס את כל הרוחב של האב */
-  text-align: center;   /* ממורכז */
+  flex: 1;             
+  text-align: center;  
   font-size: 1.5rem;
   color: #ffffff;
   font-family: "rubik-bold";
   font-weight: bold;
-  white-space: normal;  /* מאפשר שבירה של שורות */
+  white-space: normal; 
 }
 
-/* שאר הגדרות ללא שינוי */
-.subject {
-  border-radius: 0.52rem;
-  padding: 0.5rem;
-}
 
-.now-subject {
-  background-color: #ffb703;
-  color: #023047;
-}
 
 .main-subj {
   font-weight: 500;

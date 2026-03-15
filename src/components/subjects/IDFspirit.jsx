@@ -26,7 +26,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
     <div>
       {page === 0 && (
         <div className="page1">
-          <p>מלל של דף ראשון - רוח צה"ל</p>
+          <p className="title-content">הכירו את חיל החינוך</p>
         </div>
       )}
 
