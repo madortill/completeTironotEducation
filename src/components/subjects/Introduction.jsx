@@ -1,6 +1,10 @@
 import React from "react";
 import nextBtn from "../../assets/images/introduction/nextBtn.png";
 import backBtn from "../../assets/images/introduction/backBtn.png";
+import meetEduImg from "../../assets/images/introduction/meetEduImg.png";
+import IDFspiritImg from "../../assets/images/introduction/IDFspiritImg.png";
+import IDFscrollImg from "../../assets/images/introduction/IDFscrollImg.png";
+
 
 function Introduction({ page, setPage, finishSubject }) {
 
@@ -15,7 +19,9 @@ function Introduction({ page, setPage, finishSubject }) {
   };
 
   const handleBack = () => {
-    // אין חזרה אחורה למבוא כי זה הנושא הראשון
+    if (page > 0) {
+      setPage(page - 1);
+    }
   };
 
   return (
@@ -23,7 +29,13 @@ function Introduction({ page, setPage, finishSubject }) {
 
       {page === 0 && (
         <div className="page1">
-          <p>מלל של דף ראשון - מבוא לנושא</p>
+          <p className="title-content">מה נלמד היום?</p>
+          <p className="sec-title-content">בלומדה יש שלושה נושאים</p>
+          <img src={meetEduImg} alt="meetEduImg" className="meetEduImg" />
+          <img src={IDFspiritImg} alt="IDFspiritImg" className="IDFspiritImg" />
+          <img src={IDFscrollImg} alt="IDFscrollImg" className="IDFscrollImg" />
+
+
         </div>
       )}
 
@@ -37,9 +49,10 @@ function Introduction({ page, setPage, finishSubject }) {
         <img
           src={backBtn}
           alt="back"
-          className="backBtn nav-btns disabled"
-          onClick={handleBack}
+          className={`backBtn nav-btns ${page === 0 ? "disabled" : ""}`}
+          onClick={page === 0 ? undefined : handleBack}
         />
+
         <img
           src={nextBtn}
           alt="next"

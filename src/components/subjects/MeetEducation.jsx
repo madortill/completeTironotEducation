@@ -27,6 +27,7 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
       {page === 0 && (
         <div className="page1">
           <p>מלל של דף ראשון - הכירו את חיל החינוך</p>
+          
         </div>
       )}
 
