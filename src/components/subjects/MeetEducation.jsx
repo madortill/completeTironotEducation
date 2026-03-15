@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../css/meetEducation.css";   
 import IconBahadStars from "../../components/IconBahadStars";
+import IconBahadClick from "../../components/IconBahadClick";
+
 
 import nextBtn from "../../assets/images/introduction/nextBtn.png";
 import backBtn from "../../assets/images/introduction/backBtn.png";
@@ -60,8 +62,9 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
       {page === 1 && (
         <div className="page2">
           <p className="title-content">משמעות הסמל</p>
-          <p className="sec-title-content">בלומדה יש שלושה נושאים</p>
-                    
+          <p className="text-content">סמל חיל החינוך מייצג את שלושת מרכזי פועלו- הלהבה הרביעית מייצגת מפקדת החיל.</p>
+          <p className="sec-title-content">לחצו על הלהבות!</p>
+          <IconBahadClick />
         </div>
       )}
 

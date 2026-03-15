@@ -63,6 +63,13 @@
     margin-top: 0.5rem;
     padding: 0rem 1rem;   /* גם כאן */
 }
+.text-content {
+    font-family: "rubik";
+    color: #477FA3;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    padding: 0rem 1rem; 
+}
 
 /* intro */
 .meetEduImg {

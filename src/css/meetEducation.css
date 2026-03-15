@@ -46,4 +46,21 @@
   }
 }
 
+.text-box{
+  position:absolute;
+  top:15rem;
+  left:52%;
+  transform:translateX(-50%);
+  width:139px;
+  height:74px;
+  font-size: 1.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+ font-family: "rubik-bold";
+  pointer-events:none;
+  z-index: 1;
+}
 /* עמוד שני */
