@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import "../../css/meetEducation.css";   
 import IconBahadStars from "../../components/IconBahadStars";
 import IconBahadClick from "../../components/IconBahadClick";
-
-
+import fairyBubbleTalk from "../../assets/images/characters/fairy/bubbleTalk.png";
+import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.png";
+import { useCharacter } from "../../context/CharacterContext";
 import nextBtn from "../../assets/images/introduction/nextBtn.png";
 import backBtn from "../../assets/images/introduction/backBtn.png";
 
 function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
 
-  const totalPages = 2; // מספר העמודים בנושא
+  const totalPages = 10; // מספר העמודים בנושא
   const [showStars, setShowStars] = useState(false); // מצב לפייד אין
 
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
@@ -39,6 +40,13 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
     }
   };
 
+  const { character } = useCharacter();
+
+  const characterImg =
+    character === "fairy"
+      ? fairyBubbleTalk
+      : elfBubbleTalk;
+
   return (
     <div>
       {page === 0 && (
@@ -65,6 +73,18 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
           <p className="text-content">סמל חיל החינוך מייצג את שלושת מרכזי פועלו- הלהבה הרביעית מייצגת מפקדת החיל.</p>
           <p className="sec-title-content">לחצו על הלהבות!</p>
           <IconBahadClick />
+        </div>
+      )}
+
+        {page === 2 && (
+        <div className="page3">
+          <p className="title-content">ייעודו של החיל</p>
+          <img
+        src={characterImg}
+        alt="chosen character"
+        className="bubbleTalkImg"
+      />
+      <p className="bubble-text">ייעודו של חיל החינוך הוא להוות סמכות מקצועית המקדמת את תחום הפיקודי-חינוכי והתחום הלאומי חברתי בצה”ל ובמדינה.</p>
         </div>
       )}
 

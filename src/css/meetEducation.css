@@ -45,7 +45,7 @@
     transform: scale(1) translateY(0);
   }
 }
-
+/* עמוד שני */
 .text-box{
   position:absolute;
   top:15rem;
@@ -63,4 +63,19 @@
   pointer-events:none;
   z-index: 1;
 }
-/* עמוד שני */
+/* עמוד שלישי */
+
+.bubbleTalkImg {
+    width: 16rem;
+    margin-top: 1rem;
+}
+
+.bubble-text {
+    position: relative;
+    top: -21.7rem;
+    right: 2.5rem;
+    color: white;
+    font-size: 1.2rem;
+    width: 14rem;
+    font-family: "rubik";
+}
