@@ -103,7 +103,7 @@ function Content() {
   };
 
   return (
-    <div>
+    <div className="content-page">
       <Navbar
         subjNum={subjNum}
         setSubjNum={setSubjNum}

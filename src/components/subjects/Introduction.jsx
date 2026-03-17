@@ -29,7 +29,7 @@ function Introduction({ page, setPage, finishSubject }) {
     <div>
 
       {page === 0 && (
-        <div className="page1">
+        <div className="page1 page">
           <p className="title-content">מה נלמד היום?</p>
           <p className="sec-title-content">בלומדה יש שלושה נושאים</p>
           <img src={meetEduImg} alt="meetEduImg" className="meetEduImg" />
