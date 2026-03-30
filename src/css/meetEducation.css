@@ -238,7 +238,8 @@
    
 }
 .mashakExp {
-    width: 5.55rem;
+    width: 5rem;
+    border-radius: 10rem;
 }
 
 .glow {
@@ -248,25 +249,26 @@
 
 .professeion-edu-contianer {
   background-color: white;
-  width: 20rem;
+  width: 17rem;
   padding: 1rem 0.5rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0.7rem;
+  margin-top: 1rem;
 }
 .text-swich {
   font-family: "rubik";
   color: #477fa3;
   font-size: 0.95rem;
+  padding: 0.5rem;
 }
 
 .arrows-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 17rem;
+  width: 15rem;
 }
 
 .arrow-right {
@@ -277,6 +279,60 @@
   width: 1.8rem;
 }
 
+.hidden-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+.disabled-btn {
+  opacity: 0.4;
+  pointer-events: none;
+  background-color: #00428800;
+}
 
+.locked {
+  opacity: 0.4;
+}
+
+/* arrayShield */
+
+.btn-what {
+  background-color: #477fa3;
+  font-family: "rubik-bold";
+  color: white;
+  font-size: 1.3rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  margin: 2rem;
+
+  /* width: 15rem; */
+}
+.text-shield {
+  font-family: "rubik";
+  color: #477fa3;
+  font-size: 1.15rem;
+  padding:  0rem 3rem;
+
+}
+.text-shield-jobs {
+  font-family: "rubik";
+  color: #477fa3;
+  font-size: 1rem;
+  padding:  1rem 3rem;
+
+}
+
+/* treeJobs + Apple */
+
+.apple-container {
+  width: 7rem;             /* רוחב מלא של הדיב */
+  height: 10rem;           /* אפשר לשנות לפי הצורך */
+  background-image: url('../assets/images/meetEducation/'); /* הנתיב לתמונה */
+  background-size: contain;    /* ממלא את הדיב כולו */
+  background-position: center; /* ממקם את התמונה במרכז */
+  background-repeat: no-repeat; /* מונע חזרה של התמונה */
+  display: flex;
+  align-items: center;
+}
 
 

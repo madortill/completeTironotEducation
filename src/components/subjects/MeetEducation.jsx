@@ -188,20 +188,22 @@ const finishArray = (arrayName) => {
   </div>
 )}
 
-      <div className="container-buttons">
-        <img
-          src={backBtn}
-          alt="back"
-          className="backBtn nav-btns"
-          onClick={handleBack}
-        />
-        <img
-          src={nextBtn}
-          alt="next"
-          className="nextBtn nav-btns"
-          onClick={handleNext}
-        />
-      </div>
+{!selectedArray && (
+  <div className="container-buttons">
+    <img
+      src={backBtn}
+      alt="back"
+      className="backBtn nav-btns"
+      onClick={handleBack}
+    />
+    <img
+      src={nextBtn}
+      alt="next"
+      className="nextBtn nav-btns"
+      onClick={handleNext}
+    />
+  </div>
+)}
     </div>
   );
 }
