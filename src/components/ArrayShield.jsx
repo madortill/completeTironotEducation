@@ -74,9 +74,7 @@ function ArrayShield({ finish }) {
           <p className="sec-title-content">
             מקצועות המערך
           </p>
-          <p className="text-shield-jobs">
-            לחצו על התפוחים! 
-          </p>
+          
           <TreeJobs />
         </div>
       )}
@@ -120,7 +118,7 @@ function ArrayShield({ finish }) {
           src={backBtn}
           alt="back"
           className={`backBtn nav-btns ${
-            innerPage === 0 ? "disabled-btn" : ""
+            innerPage === 0 ? "disabled-btn-edu" : ""
           }`}
           onClick={handleBackInner}
         />
@@ -129,7 +127,7 @@ function ArrayShield({ finish }) {
           src={nextBtn}
           alt="next"
           className={`nextBtn nav-btns ${
-            (innerPage === 0 && !canFinish) ? "disabled-btn" : ""
+            (innerPage === 0 && !canFinish) ? "disabled-btn-edu" : ""
           }`}
           onClick={handleNextInner}
         />

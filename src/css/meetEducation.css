@@ -118,6 +118,19 @@
     margin-right: 16rem;
 }
 
+/* עמוד 6 */
+
+.bubbles-container {
+  display: flex;
+  flex-direction: row;
+  width: 25rem;
+  margin-top: -8rem;
+  justify-content: space-around;
+}
+.bubbles {
+width: 10rem;
+}
+
 /* מערך חינוך */
 .goal-img-arrEdu {
     margin-top: 0.7rem;
@@ -283,7 +296,7 @@
   opacity: 0;
   pointer-events: none;
 }
-.disabled-btn {
+.disabled-btn-edu {
   opacity: 0.4;
   pointer-events: none;
   background-color: #00428800;
@@ -324,15 +337,69 @@
 
 /* treeJobs + Apple */
 
-.apple-container {
-  width: 7rem;             /* רוחב מלא של הדיב */
-  height: 10rem;           /* אפשר לשנות לפי הצורך */
-  background-image: url('../assets/images/meetEducation/'); /* הנתיב לתמונה */
-  background-size: contain;    /* ממלא את הדיב כולו */
-  background-position: center; /* ממקם את התמונה במרכז */
-  background-repeat: no-repeat; /* מונע חזרה של התמונה */
-  display: flex;
-  align-items: center;
+.text-hod {
+  font-family: "rubik-bold";
+  font-size: 1.2rem;
+}
+.text-worm {
+  font-family: "rubik-bold";
+  font-size: 1rem;
+}
+.big-worm {
+  width: 3.5rem;
+  margin-top: -2.5rem;
+  margin-right: 11rem;
 }
 
+/* שכבת רקע (overlay) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 4;
+}
+
+
+.popup {
+  background: #D3EEFF;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+ 
+  color:#004288;
+  font-size: 1.2rem;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  animation: popupFade 0.4s ease;
+
+}
+
+@keyframes popupSmooth {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.popup-hod-text1 {
+  font-family: "rubik-bold";
+}
+.popup-hod-microcopy {
+  font-family: "rubik";
+  margin-top: 1rem;
+}
 

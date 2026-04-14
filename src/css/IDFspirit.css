@@ -1,0 +1,74 @@
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 2.5rem;
+  }
+  
+  /* התיבה עצמה */
+  .styled-textarea {
+    width: 15rem;
+    height: 10rem;
+    padding: 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    
+  
+    background: #f3f3f3;
+    font-size: 16px;
+    resize: none;
+  
+    /* glow */
+    /* box-shadow: 0 0 30px rgb(255, 255, 210); */
+  }
+  
+  /* placeholder */
+  .styled-textarea::placeholder {
+    color: #999;
+    font-family: "rubik";
+  }
+  
+  /* הפרפר */
+  .butterfly {
+    position: absolute;
+    top: -1rem;
+    right: -1.6rem;
+    width: 4rem;
+  
+    transform: translate(30%, -30%);
+    pointer-events: none; /* שלא יפריע ללחיצה */
+  }
+
+  .submit-btn {
+    background-color: #477FA3;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    margin-top: 0.5rem;
+    color: white;
+    font-family: "rubik-bold";
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+.submit-btn.submitted {
+    background-color: #929292;
+    color: white;
+    cursor: default;
+  }
+
+  /* עמוד 3 */
+
+  .idfSpiritImg {
+    width: 10rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
+  .spiritParts {
+    width: 15rem;
+    margin-top: 0.5rem
+
+  }

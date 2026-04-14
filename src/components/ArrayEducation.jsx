@@ -169,7 +169,7 @@ function ArrayEducation({ finish }) {
 <img
   src={nextBtn}
   alt="next"
-  className={`nextBtn nav-btns ${!canFinish ? "disabled-btn" : ""}`}
+  className={`nextBtn nav-btns ${!canFinish ? "disabled-btn-edu" : ""}`}
   onClick={() => {
     if (canFinish) {
       finish();

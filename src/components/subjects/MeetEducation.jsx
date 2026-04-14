@@ -11,8 +11,12 @@ import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.png";
 import fairyComment from "../../assets/images/characters/fairy/comment.png";
 import elfComment from "../../assets/images/characters/elf/comment.png";
 import arrayEduImg from "../../assets/images/meetEducation/arrayEduImg.png";
+import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.png";
+import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png";
 import arrayShieldImg from "../../assets/images/meetEducation/arrayShieldImg.png";
 import viArrays from "../../assets/images/meetEducation/viArrays.png";
+import bubbleTivoh from "../../assets/images/meetEducation/tivoh.svg";
+import bubbleSamhot from "../../assets/images/meetEducation/samhot.svg";
 
 
 import { useCharacter } from "../../context/CharacterContext";
@@ -21,7 +25,7 @@ import backBtn from "../../assets/images/introduction/backBtn.png";
 
 function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
 
-  const totalPages = 10; // מספר העמודים בנושא
+  const totalPages = 6; // מספר העמודים בנושא
   const [showStars, setShowStars] = useState(false); // מצב לפייד אין
 
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
@@ -62,6 +66,11 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
     character === "fairy"
       ? fairyComment
       : elfComment;
+
+      const characterImgbubbles =
+    character === "fairy"
+      ? fairyBubbles
+      : elfBubbles;
 
       // בחירת מערך
       const [selectedArray, setSelectedArray] = useState(null);
@@ -187,6 +196,23 @@ const finishArray = (arrayName) => {
 
   </div>
 )}
+
+{page === 5 && (
+        <div className="page4 page">
+          <p className="title-content"> מבנה חיל החינוך</p>
+          <p className="sec-title-content">מטה החיל</p>
+          <p className="text-content">למטה יש שתי מטרות</p>
+          <img
+        src={characterImgbubbles}
+        alt="chosen character"
+        className="bubble-character-Img"
+      />
+      <div className="bubbles-container">
+        <img src={bubbleTivoh} alt="bubbleTivoh" className="bubbles" />
+        <img src={bubbleSamhot} alt="bubbleTivoh" className="bubbles" />
+      </div>
+          </div>
+      )}
 
 {!selectedArray && (
   <div className="container-buttons">
