@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import "../css/FlipCard.css"; // put your css here
+
 
 function FlipCard({ back, front, onFlip, children}) {
   const [flipped, setFlipped] = useState(false);
