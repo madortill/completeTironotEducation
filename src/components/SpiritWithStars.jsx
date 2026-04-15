@@ -11,12 +11,12 @@ function SpiritWithStars() {
 
 <g transform="translate(14, 5)">
   {/* כוכב גדול */}
-  <g className="twinkle" style={{ animationDuration: '2s', animationDelay: '0s' }}>
+  <g className="twinkle" style={{ animationDuration: '2s', animationDelay: '0s', transform: 'translate(-8px, -5px)' }}>
     <path d="M12.1128 7.28693L14.1445 1.44318L16.4302 7.28693L22.2715 10.2088L16.4302 12.5994L14.1445 18.4432L12.1128 12.5994L6.27148 10.2088L12.1128 7.28693Z" fill="#FFFFD7" stroke="#FFFFD7"/>
   </g>
 
   {/* כוכב קטן */}
-  <g className="twinkle" style={{ animationDuration: '2s', animationDelay: '0s' }}>
+  <g className="twinkle" style={{ animationDuration: '2s', animationDelay: '0s', transform: 'translate(-8px, -5px)' }}>
     <path d="M5.65244 22.5682L7.17625 18.4432L8.89053 22.5682L13.2715 24.6307L8.89053 26.3182L7.17625 30.4432L5.65244 26.3182L1.27148 24.6307L5.65244 22.5682Z" fill="#FFFFD7" stroke="#FFFFD7"/>
   </g>
 </g>

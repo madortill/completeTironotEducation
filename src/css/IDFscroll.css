@@ -1,0 +1,44 @@
+.closeScroll {
+    margin-top: 2rem;
+    width: 7rem;
+}
+
+.scrollWithText {
+    margin-top: 1rem;
+    width: 15rem;
+   
+}
+
+.floating {
+    animation: float 2.5s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+
+  .scroll-img {
+    transition: opacity 0.3s ease;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  

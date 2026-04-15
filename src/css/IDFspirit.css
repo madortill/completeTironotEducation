@@ -72,3 +72,106 @@
     margin-top: 0.5rem
 
   }
+  .tooltip {
+    font-family: "rubik";
+    color: #004288;
+  }
+
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .popup-content {
+    background: rgba(255, 255, 255, 0);
+    padding: 1rem;
+    /* border-radius: 1rem; */
+    text-align: center;
+
+  }
+  
+  .popup-content img {
+    width: 20rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .popup-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #477FA3;
+    color: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cards-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 3rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.6rem;
+  }
+  .card-input {
+    font-family: "rubik";
+    width: 90%;
+    height: 50%;
+  }
+  .cards-navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: -4rem;
+  }
+
+  .narrowBtnFlip-L {
+    transform: rotate(180deg);
+  }
+  .narrowBtnFlip {
+    width: 4rem;
+  }
+  .narrowBtnFlip.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  .btnHard {
+    width: 10rem;
+    margin-top: 1rem;
+  }
+  .comment-hard-text {
+    color: white;
+    font-family: "rubik";
+    width: 8rem;
+    font-size: 0.9rem;
+    margin-top: -10.6rem;
+    margin-right: 4.5rem;
+}
+
+
+
+
+
+  @media (max-width: 350px) {
+    .cards-wrapper {
+        gap: 0.5rem 2rem;
+      }
+    
+}

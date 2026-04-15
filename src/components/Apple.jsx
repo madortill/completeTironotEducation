@@ -121,7 +121,7 @@ function Apple({ onBack, openedApple }) {
       <p className='popup-hod-text1'>תחת קורס הוד יש 6 מגמות</p>
       <p className='popup-hod-microcopy'>לחצו על המגמות לעוד מידע!</p>
       <Worm />
-      <button onClick={() => setShowPopup(false)}>סגור</button>
+      <button className='close-goal-btn' onClick={() => setShowPopup(false)}>סגור</button>
     </div>
   </div>
 )}
