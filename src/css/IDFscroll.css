@@ -40,5 +40,19 @@
       transform: scale(1);
     }
   } 
+  .goal-scroll-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
+  .goal-scroll {
+    width: 4rem;
+  }
+  .goal-scroll-text {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
+    color: ;
+  }
 
   

@@ -6,6 +6,7 @@ import "../../css/IDFscroll.css";
 
 import closeScroll from "../../assets/images/IDFscroll/closeScroll.png";
 import scrollWithText from "../../assets/images/IDFscroll/scrollWithText.svg";
+import goal from "../../assets/images/meetEducation/goal.png";
 
 function IDFscroll({ page, setPage, goToPrevSubject }) {
   const [showStars, setShowStars] = useState(false);
@@ -72,6 +73,10 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
       ${isOpen ? "scrollWithText fade-in" : "closeScroll floating"}`}
     onClick={() => setIsOpen(true)}
   />
+</div>
+<div className="goal-scroll-container">
+  <img src={goal} alt="goal" className="goal-scroll" />
+  <p className="goal-scroll-text">מטרתה- עיצוב הפעולות הערכיות של חיילי צה"ל.</p>
 </div>
         </div>
       )}
