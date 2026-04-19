@@ -1,58 +1,114 @@
 .closeScroll {
-    margin-top: 2rem;
-    width: 7rem;
+  margin-top: 2rem;
+  width: 7rem;
 }
 
 .scrollWithText {
-    margin-top: 1rem;
-    width: 15rem;
-   
+  margin-top: 1rem;
+  width: 15rem;
+
 }
 
 .floating {
-    animation: float 2.5s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
+  animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
   }
 
-  .scroll-img {
-    transition: opacity 0.3s ease;
-  }
-  
-  .fade-in {
-    animation: fadeIn 0.5s ease;
-  }
-  
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  } 
-  .goal-scroll-container {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-  }
-  .goal-scroll {
-    width: 4rem;
-  }
-  .goal-scroll-text {
-    background-color: white;
-    border-radius: 1rem;
-    padding: 1rem 0.5rem;
-    color: ;
+  50% {
+    transform: translateY(-10px);
   }
 
-  
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.scroll-img {
+  transition: opacity 0.3s ease;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.goal-scroll-container {
+  display: flex;
+  flex-direction: row;
+  /* text-align: center; */
+
+  /* margin-top: -1rem; */
+}
+
+.goal-scroll {
+  width: 4rem;
+  z-index: 1;
+  position: relative;
+  right: 1rem;
+  top: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.goal-scroll-text-con {
+  background-color: white;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.goal-scroll-text {
+  padding: 1rem;
+  color: #477FA3;
+  width: 15rem;
+  font-family: "rubik";
+}
+/* אנימציית גדילה/קטנה */
+.pulse {
+  animation: pulseAnim 1.5s infinite;
+}
+
+@keyframes pulseAnim {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* @keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+} */
+/* כשהטקסט אמור להופיע */
+.goal-scroll-text-con.show {
+  opacity: 1;
+}
