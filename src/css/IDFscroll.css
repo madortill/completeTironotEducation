@@ -112,3 +112,31 @@
 .goal-scroll-text-con.show {
   opacity: 1;
 }
+.hide {
+opacity: 0;
+}
+.group {
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.identity-text {
+  font-family: "rubik-bold";
+  color: white;
+  background-color: #477FA3;
+  width: 20rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* כשהוא אמור להופיע */
+.identity-text.show {
+  opacity: 1;
+}

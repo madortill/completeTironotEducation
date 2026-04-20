@@ -9,10 +9,18 @@ import closeScroll from "../../assets/images/IDFscroll/closeScroll.png";
 import scrollWithText from "../../assets/images/IDFscroll/scrollWithText.svg";
 import goal from "../../assets/images/meetEducation/goal.png";
 
+import { useCharacter } from "../../context/CharacterContext";
+import fairyStarsIndipendent from "../../assets/images/characters/fairy/starsIndipendent.png";
+import elfStarsIndipendent from "../../assets/images/characters/elf/starsIndipendent.png";
+import fairyStarsSpirit from "../../assets/images/characters/fairy/starsSpirit.png";
+import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.png";
+
+
 function IDFscroll({ page, setPage, goToPrevSubject }) {
   const [showStars, setShowStars] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenGoal, setIsOpenGoal] = useState(false);
+  const [openedCount, setOpenedCount] = useState(0);
 
   useEffect(() => {
     if (page === 0) {
@@ -23,7 +31,7 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
       setShowStars(false); // אם לא בעמוד 0, לא להראות כוכבים
     }
   }, [page]);
-  const totalPages = 4; // מספר העמודים בנושא
+  const totalPages = 5; // מספר העמודים בנושא
 
   const handleNext = () => {
     if (page < totalPages - 1) {
@@ -39,6 +47,14 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
       goToPrevSubject(); // חזרה לנושא הקודם
     }
   };
+  // הדמות
+  const { character } = useCharacter();
+
+  const characterImg = character === "fairy" ? fairyStarsIndipendent : elfStarsIndipendent;
+  const characterImg2 = character === "fairy" ? fairyStarsSpirit : elfStarsSpirit;
+  // תנאים לכפתור
+  const isNextDisabled =
+    (page === 1 && !isOpenGoal) || (page === 2 && openedCount < 15);
 
   return (
     <div>
@@ -64,7 +80,7 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
       )}
 
       {page === 1 && (
-        <div className="page2">
+        <div className="page page2">
           <p className="title-content">מהי מגילת צה"ל?</p>
           <p className="sec-title-content">לחצו על הקלף!</p>
           <div className="scroll-container">
@@ -96,12 +112,33 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
         </div>
       )}
 
-{page === 2 && (
-        <div className="page3">
+      {page === 2 && (
+        <div className=" page page3">
           <p className="title-content">חלקי המגילה</p>
-          <p className="text-content">המגילה מחולקת ל-15 פסקאות שכל פסקה מתמקדת ברכיב אחר בזהות צה"ל:</p>
+          <p className="text-content">
+            המגילה מחולקת ל-15 פסקאות שכל פסקה מתמקדת ברכיב אחר בזהות צה"ל:
+          </p>
           <p className="sec-title-content">לחצו על הפסקאות להשלמת הפאזל!</p>
-          <Pazzle/>
+          <Pazzle onProgressChange={setOpenedCount} />
+          <p className={`identity-text ${openedCount >= 15 ? "show" : ""}`}>
+            כל הפסקאות יחדיו מגדירות את זהות צה”ל!
+          </p>
+        </div>
+      )}
+
+            {page === 3 && (
+        <div className=" page page4">
+          <p className="title-content">מגילת צה"ל בהשוואה</p>
+          <p className="sec-title-content">מגילת העצמאות ומגילת צה"ל</p>
+          <img src={characterImg} alt="chosen character" />
+        </div>
+      )}
+
+{page === 4 && (
+        <div className=" page page5">
+          <p className="title-content">מגילת צה"ל בהשוואה</p>
+          <p className="sec-title-content">מגילת העצמאות ומגילת צה"ל</p>
+          <img src={characterImg2} alt="chosen character" />
         </div>
       )}
 
@@ -115,11 +152,9 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
         <img
           src={nextBtn}
           alt="next"
-          className={`nextBtn nav-btns ${
-            page === 1 && !isOpenGoal ? "disabled" : ""
-          }`}
+          className={`nextBtn nav-btns ${isNextDisabled ? "disabled" : ""}`}
           onClick={() => {
-            if (page === 1 && !isOpenGoal) return;
+            if (isNextDisabled) return;
             handleNext();
           }}
         />
