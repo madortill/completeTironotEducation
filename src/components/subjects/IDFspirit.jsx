@@ -33,7 +33,8 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
     }
   }, [page]);
   const totalPages = 10; // מספר העמודים בנושא
-
+  const progress = page === 0 ? 0 : page;
+  const totalProgressPages = totalPages - 1;
   const handleNext = () => {
     if (page === 7) {
       setShowPopup(true);
@@ -89,6 +90,16 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
 
   return (
     <div>
+      {page !== 0 && (
+        <div className="progress-bar-container">
+          <div
+            className="progress-bar"
+            style={{
+              width: `${(progress / totalProgressPages) * 100}%`,
+            }}
+          />
+        </div>
+      )}
       {page === 0 && (
         <div className="page1 page">
           <p className="title-chapter">- פרק 2 -</p>
@@ -194,7 +205,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
           <img src={spiritArahim} alt="spiritArahim" className="spiritParts" />
           {showPopup && (
             <div className="popup-overlay">
-              <div className="popup-content">
+              <div className="popup-content-value">
                 <img src={popUpValues} alt="popUpValues" />
 
                 <button

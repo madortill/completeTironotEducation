@@ -1,3 +1,34 @@
+.progress-indicator {
+  position: absolute;
+  top: 5rem;
+  left: 1rem;
+
+  background-color: #4780a385;
+  color: #004288;
+
+  padding: 0.1rem 0.6rem;
+  border-radius: 1rem;
+
+  font-size: 0.8rem;
+  font-family: "rubik";
+}
+.progress-bar-container {
+  position: absolute;
+  top: 5rem;
+  left: 9.5rem;
+
+  width: 120px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #477FA3;
+  transition: width 0.4s ease;
+}
 .twinkle {
   transform-box: fill-box;
   transform-origin: center;
@@ -72,7 +103,7 @@
 
 .bubble-text {
     position: relative;
-    top: -24.5rem;
+    top: -25rem;
     color: white;
     font-size: 1.2rem;
     width: 14rem;
@@ -88,7 +119,7 @@
     color: white;
     font-family: "rubik";
     width: 8rem;
-    margin-top: -10.1rem;
+    margin-top: -10.4rem;
     margin-right: 4.5rem;
 }
 

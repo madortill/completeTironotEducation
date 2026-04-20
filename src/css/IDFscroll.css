@@ -140,3 +140,76 @@ opacity: 0;
 .identity-text.show {
   opacity: 1;
 }
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.popup-box {
+  background-color: #477FA3;
+
+  border-radius: 1rem;
+  padding: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+
+.popup-title {
+  font-size: 1.3rem;
+  font-family: "rubik-bold";
+  color: white;
+  margin-bottom: 1rem;
+}
+.characterEnd {
+  position: relative;
+}
+
+.popup-text {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #477FA3;
+}
+
+.popup-end-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #C38D94;
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  font-family: "rubik-bold";
+  /* margin-top: 2rem; */
+  /* top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

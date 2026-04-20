@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../../css/meetEducation.css";   
+import "../../css/meetEducation.css";
 import IconBahadStars from "../../components/IconBahadStars";
 import IconBahadClick from "../../components/IconBahadClick";
 import ArrayEducation from "../../components/ArrayEducation";
 import ArrayShield from "../../components/ArrayShield";
-
 
 import fairyBubbleTalk from "../../assets/images/characters/fairy/bubbleTalk.png";
 import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.png";
@@ -18,14 +17,15 @@ import viArrays from "../../assets/images/meetEducation/viArrays.png";
 import bubbleTivoh from "../../assets/images/meetEducation/tivoh.svg";
 import bubbleSamhot from "../../assets/images/meetEducation/samhot.svg";
 
-
 import { useCharacter } from "../../context/CharacterContext";
 import nextBtn from "../../assets/images/introduction/nextBtn.png";
 import backBtn from "../../assets/images/introduction/backBtn.png";
 
 function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
-
   const totalPages = 6; // מספר העמודים בנושא
+  const progress = page === 0 ? 0 : page;
+  const totalProgressPages = totalPages - 1;
+
   const [showStars, setShowStars] = useState(false); // מצב לפייד אין
 
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
@@ -57,39 +57,45 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
 
   const { character } = useCharacter();
 
-  const characterImg =
-    character === "fairy"
-      ? fairyBubbleTalk
-      : elfBubbleTalk;
+  const characterImg = character === "fairy" ? fairyBubbleTalk : elfBubbleTalk;
 
-      const characterImg2 =
-    character === "fairy"
-      ? fairyComment
-      : elfComment;
+  const characterImg2 = character === "fairy" ? fairyComment : elfComment;
 
-      const characterImgbubbles =
-    character === "fairy"
-      ? fairyBubbles
-      : elfBubbles;
+  const characterImgbubbles = character === "fairy" ? fairyBubbles : elfBubbles;
 
-      // בחירת מערך
-      const [selectedArray, setSelectedArray] = useState(null);
-const [finishedArrays, setFinishedArrays] = useState({
-  edu: false,
-  shield: false
-});
+  // בחירת מערך
+  const [selectedArray, setSelectedArray] = useState(null);
+  const [finishedArrays, setFinishedArrays] = useState({
+    edu: false,
+    shield: false,
+  });
 
-const finishArray = (arrayName) => {
-  setFinishedArrays((prev) => ({
-    ...prev,
-    [arrayName]: true
-  }));
+  const finishArray = (arrayName) => {
+    setFinishedArrays((prev) => ({
+      ...prev,
+      [arrayName]: true,
+    }));
 
-  setSelectedArray(null); // חזרה למסך הבחירה
-};
+    setSelectedArray(null); // חזרה למסך הבחירה
+  };
 
   return (
     <div>
+      {/* {page !== 0 && (
+      <div className="progress-indicator">
+        {progress} / {totalProgressPages}
+      </div>
+      )} */}
+      {page !== 0 && (
+      <div className="progress-bar-container">
+  <div
+    className="progress-bar"
+    style={{
+      width: `${(progress / totalProgressPages) * 100}%`,
+    }}
+  />
+</div>
+)}
       {page === 0 && (
         <div className="page1 page">
           <p className="title-chapter">- פרק 1 -</p>
@@ -100,32 +106,37 @@ const finishArray = (arrayName) => {
 
           {/* Fade In אחרי 2 שניות */}
           {showStars && (
-  <div className="stars-fade">
-    <IconBahadStars />
-  </div>
-)}
-
+            <div className="stars-fade">
+              <IconBahadStars />
+            </div>
+          )}
         </div>
       )}
 
       {page === 1 && (
         <div className="page2 page">
           <p className="title-content">משמעות הסמל</p>
-          <p className="text-content">סמל חיל החינוך מייצג את שלושת מרכזי פועלו- הלהבה הרביעית מייצגת מפקדת החיל.</p>
+          <p className="text-content">
+            סמל חיל החינוך מייצג את שלושת מרכזי פועלו- הלהבה הרביעית מייצגת
+            מפקדת החיל.
+          </p>
           <p className="sec-title-content">לחצו על הלהבות!</p>
           <IconBahadClick />
         </div>
       )}
 
-        {page === 2 && (
+      {page === 2 && (
         <div className="page3 page">
           <p className="title-content">ייעודו של החיל</p>
           <img
-        src={characterImg}
-        alt="chosen character"
-        className="bubbleTalkImg"
-      />
-      <p className="bubble-text">ייעודו של חיל החינוך הוא להוות סמכות מקצועית המקדמת את תחום הפיקודי-חינוכי והתחום הלאומי חברתי בצה”ל ובמדינה.</p>
+            src={characterImg}
+            alt="chosen character"
+            className="bubbleTalkImg"
+          />
+          <p className="bubble-text">
+            ייעודו של חיל החינוך הוא להוות סמכות מקצועית המקדמת את תחום
+            הפיקודי-חינוכי והתחום הלאומי חברתי בצה”ל ובמדינה.
+          </p>
         </div>
       )}
 
@@ -134,102 +145,103 @@ const finishArray = (arrayName) => {
           <p className="title-content"> מבנה חיל החינוך</p>
           <p className="sec-title-content">בית ספר למקצועות החינוך</p>
           <p className="text-content">זהו למעשה- בה”ד(בסיס הדרכה) החינוך.</p>
-          <p className="text-content">אמון על הכשרת כוח אדם בחיל החינוך והנוער.</p>
-          <p className="text-content">ההכשרות בבית הספר כוללות הכשרות יסוד(טירונים המתגייסים לתפקיד ראשון והן הכשרות קצינים והשתלמויות חיליות).</p>
+          <p className="text-content">
+            אמון על הכשרת כוח אדם בחיל החינוך והנוער.
+          </p>
+          <p className="text-content">
+            ההכשרות בבית הספר כוללות הכשרות יסוד(טירונים המתגייסים לתפקיד ראשון
+            והן הכשרות קצינים והשתלמויות חיליות).
+          </p>
           <img
-        src={characterImg2}
-        alt="chosen character"
-        className="commentImg"
-      />
-      <p className="comment-text">ממש איפה שאתם עכשיו!</p>
-          </div>
+            src={characterImg2}
+            alt="chosen character"
+            className="commentImg"
+          />
+          <p className="comment-text">ממש איפה שאתם עכשיו!</p>
+        </div>
       )}
       {page === 4 && (
-  <div className="page5 page">
+        <div className="page5 page">
+          {!selectedArray && (
+            <>
+              <p className="title-content"> מבנה חיל החינוך</p>
+              <p className="sec-title-content">מערך חינוך ומערך מגן</p>
+              <p className="text-content">
+                מערכים אלו עובדים בשיתוף פעולה כדי לענות על מטרות החיל.
+              </p>
+              <p className="sec-title-content instArray">
+                לחצו לפירוט על המערכים!
+              </p>
 
-    {!selectedArray && (
-      <>
-        <p className="title-content"> מבנה חיל החינוך</p>
-        <p className="sec-title-content">מערך חינוך ומערך מגן</p>
-        <p className="text-content">
-          מערכים אלו עובדים בשיתוף פעולה כדי לענות על מטרות החיל.
-        </p>
-        <p className="sec-title-content instArray">
-          לחצו לפירוט על המערכים!
-        </p>
+              <div className="container-arrays-images">
+                <img
+                  src={arrayEduImg}
+                  alt="arrayEdu"
+                  className="arrays-images arrayEdu"
+                  onClick={() => setSelectedArray("edu")}
+                />
 
-        <div className="container-arrays-images">
+                <img
+                  src={arrayShieldImg}
+                  alt="arrayShield"
+                  className="arrays-images arrayShield"
+                  onClick={() => setSelectedArray("shield")}
+                />
+              </div>
 
-          <img
-            src={arrayEduImg}
-            alt="arrayEdu"
-            className="arrays-images arrayEdu"
-            onClick={() => setSelectedArray("edu")}
-          />
+              {finishedArrays.edu && (
+                <img src={viArrays} alt="viArrays" className="viArrayEdu" />
+              )}
 
-          <img
-            src={arrayShieldImg}
-            alt="arrayShield"
-            className="arrays-images arrayShield"
-            onClick={() => setSelectedArray("shield")}
-          />
+              {finishedArrays.shield && (
+                <img src={viArrays} alt="viArrays" className="viArrayshield" />
+              )}
+            </>
+          )}
 
+          {selectedArray === "edu" && (
+            <ArrayEducation finish={() => finishArray("edu")} />
+          )}
+
+          {selectedArray === "shield" && (
+            <ArrayShield finish={() => finishArray("shield")} />
+          )}
         </div>
+      )}
 
-        {finishedArrays.edu && (
-          <img src={viArrays} alt="viArrays" className="viArrayEdu" />
-        )}
-
-        {finishedArrays.shield && (
-          <img src={viArrays} alt="viArrays" className="viArrayshield" />
-        )}
-      </>
-    )}
-
-    {selectedArray === "edu" && (
-      <ArrayEducation finish={() => finishArray("edu")} />
-    )}
-
-    {selectedArray === "shield" && (
-      <ArrayShield finish={() => finishArray("shield")} />
-    )}
-
-  </div>
-)}
-
-{page === 5 && (
+      {page === 5 && (
         <div className="page4 page">
           <p className="title-content"> מבנה חיל החינוך</p>
           <p className="sec-title-content">מטה החיל</p>
           <p className="text-content">למטה יש שתי מטרות</p>
           <img
-        src={characterImgbubbles}
-        alt="chosen character"
-        className="bubble-character-Img"
-      />
-      <div className="bubbles-container">
-        <img src={bubbleTivoh} alt="bubbleTivoh" className="bubbles" />
-        <img src={bubbleSamhot} alt="bubbleTivoh" className="bubbles" />
-      </div>
+            src={characterImgbubbles}
+            alt="chosen character"
+            className="bubble-character-Img"
+          />
+          <div className="bubbles-container">
+            <img src={bubbleTivoh} alt="bubbleTivoh" className="bubbles" />
+            <img src={bubbleSamhot} alt="bubbleTivoh" className="bubbles" />
           </div>
+        </div>
       )}
 
-{!selectedArray && (
-  <div className="container-buttons">
-    <img
-      src={backBtn}
-      alt="back"
-      className="backBtn nav-btns"
-      onClick={handleBack}
-    />
-    <img
-      src={nextBtn}
-      alt="next"
-      className="nextBtn nav-btns"
-      onClick={handleNext}
-    />
-  </div>
-)}
+      {!selectedArray && (
+        <div className="container-buttons">
+          <img
+            src={backBtn}
+            alt="back"
+            className="backBtn nav-btns"
+            onClick={handleBack}
+          />
+          <img
+            src={nextBtn}
+            alt="next"
+            className="nextBtn nav-btns"
+            onClick={handleNext}
+          />
+        </div>
+      )}
     </div>
   );
 }

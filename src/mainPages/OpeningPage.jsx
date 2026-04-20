@@ -41,8 +41,12 @@ const navigate = useNavigate();
     }, 500);
   };
   const startLearning = () => {
-  navigate("/content");
-};
+    navigate("/content", {
+      state: {
+        userName,
+      },
+    });
+  };
 
   return (
     

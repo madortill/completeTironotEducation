@@ -4,6 +4,7 @@ import backBtn from "../../assets/images/introduction/backBtn.png";
 import ScrollWithStars from "../../components/ScrollWithStars";
 import Pazzle from "../../components/Pazzle";
 import "../../css/IDFscroll.css";
+import { useLocation } from "react-router-dom";
 
 import closeScroll from "../../assets/images/IDFscroll/closeScroll.png";
 import scrollWithText from "../../assets/images/IDFscroll/scrollWithText.svg";
@@ -14,6 +15,8 @@ import fairyStarsIndipendent from "../../assets/images/characters/fairy/starsInd
 import elfStarsIndipendent from "../../assets/images/characters/elf/starsIndipendent.png";
 import fairyStarsSpirit from "../../assets/images/characters/fairy/starsSpirit.png";
 import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.png";
+import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.png";
+import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png";
 
 
 function IDFscroll({ page, setPage, goToPrevSubject }) {
@@ -21,6 +24,9 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenGoal, setIsOpenGoal] = useState(false);
   const [openedCount, setOpenedCount] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const location = useLocation();
+const userName = location.state?.userName;
 
   useEffect(() => {
     if (page === 0) {
@@ -32,14 +38,21 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
     }
   }, [page]);
   const totalPages = 5; // מספר העמודים בנושא
+  const progress = page === 0 ? 0 : page;
+  const totalProgressPages = totalPages - 1;
 
   const handleNext = () => {
+    if (page === 4) {
+      setShowPopup(true);
+      return;
+    }
+  
     if (page < totalPages - 1) {
       setPage(page + 1);
+    } else {
+      finishSubject();
     }
-    // אם זה העמוד האחרון – לא עושים כלום
   };
-
   const handleBack = () => {
     if (page > 0) {
       setPage(page - 1); // מעבר לעמוד קודם
@@ -52,12 +65,24 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
 
   const characterImg = character === "fairy" ? fairyStarsIndipendent : elfStarsIndipendent;
   const characterImg2 = character === "fairy" ? fairyStarsSpirit : elfStarsSpirit;
+  const characterEnd = character === "fairy" ? fairyBubbles : elfBubbles;
+
   // תנאים לכפתור
   const isNextDisabled =
     (page === 1 && !isOpenGoal) || (page === 2 && openedCount < 15);
 
   return (
     <div>
+      {page !== 0 && (
+        <div className="progress-bar-container">
+          <div
+            className="progress-bar"
+            style={{
+              width: `${(progress / totalProgressPages) * 100}%`,
+            }}
+          />
+        </div>
+      )}
       {page === 0 && (
         <div className="page1 page">
           <p className="title-chapter">- פרק 3 -</p>
@@ -141,6 +166,24 @@ function IDFscroll({ page, setPage, goToPrevSubject }) {
           <img src={characterImg2} alt="chosen character" />
         </div>
       )}
+      {showPopup && (
+  <div className="popup-overlay">
+    <div className="popup-box">
+      <img src={characterEnd} alt="characterEnd" className="characterEnd" />
+      <p className="popup-title">כל הכבוד {userName} סיימת!</p>
+
+      <button
+        className="popup-end-btn"
+        onClick={() => {
+          setShowPopup(false);
+          setPage(5);
+        }}
+      >
+        יאללה לסיים!
+      </button>
+    </div>
+  </div>
+)}
 
       <div className="container-buttons">
         <img
