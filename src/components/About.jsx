@@ -27,12 +27,12 @@ function About() {
             <p className="list-text-about">רב"ט מאיה מרום</p>
             <h3 className="list-text-about">גרפיקה:</h3>
             <p className="list-text-about">רב"ט מאיה מרום</p>
-            <h3 className="list-text-about">מומחה תוכן:</h3>
-            <p className="list-text-about">רנ"ג יוסי</p>
+            <h3 className="list-text-about">מומחי תוכן:</h3>
+            <p className="list-text-about">שחר, סתיו</p>
             <h3 className="list-text-about">רמ"ד טי"ל:</h3>
             <p className="list-text-about">רס"מ עדן בן חמו</p>
             <h3 className="list-text-about">גרסה:</h3>
-            <p className="list-text-about">יולי 2025</p>
+            <p className="list-text-about">מרץ 2026</p>
           </div> 
     </div>
   )

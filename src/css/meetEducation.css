@@ -14,8 +14,9 @@
 }
 .progress-bar-container {
   position: absolute;
-  top: 5rem;
-  left: 9.5rem;
+  top: 11.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   width: 120px;
   height: 6px;
@@ -156,10 +157,11 @@
   flex-direction: row;
   width: 25rem;
   margin-top: -8rem;
+  margin-left: 0.5rem;
   justify-content: space-around;
 }
 .bubbles {
-width: 10rem;
+width: 8rem;
 }
 
 /* מערך חינוך */
@@ -435,3 +437,48 @@ width: 10rem;
   margin-top: 1rem;
 }
 
+@media (max-width: 375px) {
+  /* page 3 */
+  .bubbleTalkImg {
+    width: 15rem;
+    margin-top: 1rem;
+}
+
+.bubble-text {
+    top: -23rem;
+    font-size: 1.1rem;
+    width: 13rem;
+
+}
+
+.professeion-edu-contianer {
+  width: 15rem;
+  padding: 1rem 0.5rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+.text-swich {
+  font-family: "rubik";
+  color: #477fa3;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+.arrows-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 14rem;
+  margin-top: -1rem;
+}
+
+.arrow-right {
+  width: 1.5rem;
+  transform: rotate(180deg);
+}
+.arrow-left {
+  width: 1.5rem;
+}
+}

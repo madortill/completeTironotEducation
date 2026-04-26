@@ -6,6 +6,7 @@ import til from "./assets/images/tilLogo.png";
 import bahadEduIcon from "./assets/images/bahadEduIcon.png";
 import OpeningPage from "./mainPages/OpeningPage";
 import Content from "./mainPages/Content";
+import EndPage from "./mainPages/EndPage";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
       <Route path="/" element={<OpeningPage/>} />
       <Route path="/content" element={<Content/>} />
+      <Route path="/end" element={<EndPage/>} />
     </Routes>
       
       <img src={til} alt="til" className="til-logo" />

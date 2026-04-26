@@ -29,6 +29,8 @@
   font-family: "rubik-bold";
   font-weight: bold;
   white-space: normal;
+  padding: 0rem 5rem;
+  margin-right: 1rem;
 }
 
 
@@ -44,7 +46,7 @@
   width: 7rem;
   height: 7rem;
   position: absolute;
-  right: -4vw;
+  right: -5%;
   top: -1rem;
   display: flex;
   justify-content: center;

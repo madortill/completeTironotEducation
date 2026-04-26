@@ -157,16 +157,17 @@ opacity: 0;
 
   z-index: 999;
 }
-
+.popup-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .popup-box {
   background-color: #477FA3;
 
   border-radius: 1rem;
   padding: 2rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
   animation: popIn 0.3s ease;
 }

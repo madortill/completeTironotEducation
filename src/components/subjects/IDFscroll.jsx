@@ -5,6 +5,7 @@ import ScrollWithStars from "../../components/ScrollWithStars";
 import Pazzle from "../../components/Pazzle";
 import "../../css/IDFscroll.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import closeScroll from "../../assets/images/IDFscroll/closeScroll.png";
 import scrollWithText from "../../assets/images/IDFscroll/scrollWithText.svg";
@@ -20,6 +21,8 @@ import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png"
 
 
 function IDFscroll({ page, setPage, goToPrevSubject }) {
+  const navigate = useNavigate();
+  
   const [showStars, setShowStars] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenGoal, setIsOpenGoal] = useState(false);
@@ -67,6 +70,10 @@ const userName = location.state?.userName;
   const characterImg2 = character === "fairy" ? fairyStarsSpirit : elfStarsSpirit;
   const characterEnd = character === "fairy" ? fairyBubbles : elfBubbles;
 
+  const endLomda = () => {
+    navigate("/end", {
+    });
+  };
   // תנאים לכפתור
   const isNextDisabled =
     (page === 1 && !isOpenGoal) || (page === 2 && openedCount < 15);
@@ -168,6 +175,7 @@ const userName = location.state?.userName;
       )}
       {showPopup && (
   <div className="popup-overlay">
+    <div className="popup-center">
     <div className="popup-box">
       <img src={characterEnd} alt="characterEnd" className="characterEnd" />
       <p className="popup-title">כל הכבוד {userName} סיימת!</p>
@@ -176,11 +184,12 @@ const userName = location.state?.userName;
         className="popup-end-btn"
         onClick={() => {
           setShowPopup(false);
-          setPage(5);
+          endLomda();
         }}
       >
         יאללה לסיים!
       </button>
+    </div>
     </div>
   </div>
 )}

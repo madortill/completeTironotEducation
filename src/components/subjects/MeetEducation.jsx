@@ -221,7 +221,7 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
           />
           <div className="bubbles-container">
             <img src={bubbleTivoh} alt="bubbleTivoh" className="bubbles" />
-            <img src={bubbleSamhot} alt="bubbleTivoh" className="bubbles" />
+            <img src={bubbleSamhot} alt="bubbleSamhot" className="bubbles" />
           </div>
         </div>
       )}
