@@ -5,19 +5,19 @@
 }
 
 .nav-btns {
-    width: 7rem;
+    width: 5.5rem;
     /* margin: 1rem; */
 }
 .nextBtn {
     position: absolute;
-    top: 85%;
-    left: 23%;
+    top: 87%;
+    left: 21%;
     transform: translate(-50%, -50%);
 }
 .backBtn {
     position: absolute;
-    top: 85%;
-    left: 78%;
+    top: 87%;
+    left: 80%;
     transform: translate(-50%, -50%);
 }
 .disabled {
