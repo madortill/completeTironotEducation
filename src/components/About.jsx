@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function About() {
     const [showAbout, setShowAbout] = useState(false);
+
     const toggleAbout = () => setShowAbout((prev) => !prev);
   return (
     <div>

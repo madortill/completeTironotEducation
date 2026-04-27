@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Worm() {
+function Worm({ onCompleteChange }) {
     const [activeGroup, setActiveGroup] = useState(null);
+    const [clickedGroups, setClickedGroups] = useState([]);
+
+    const handleGroupClick = (id) => {
+      setClickedGroups((prev) => {
+        if (prev.includes(id)) return prev;
+        return [...prev, id];
+      });
+    };
+    const allGroupsDone = clickedGroups.length === 5;
+    useEffect(() => {
+      if (allGroupsDone) {
+        onCompleteChange(true);
+      }
+    }, [allGroupsDone]);
+    
   return (
     <div>
       <svg width="300" height="401" viewBox="0 0 384 401" fill="none"  style={{ transform: "translateX(20px)" }} xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +47,7 @@ function Worm() {
 <path d="M352.191 156.491L353.66 152.558L355.313 156.491L359.537 158.458L355.313 160.067L353.66 164L352.191 160.067L347.967 158.458L352.191 156.491Z" fill="#FFFFD7" stroke="#FFFFD7"/>
 <path d="M266.378 78.3052L267.848 74.3721L269.5 78.3052L273.725 80.2718L269.5 81.8808L267.848 85.814L266.378 81.8808L262.154 80.2718L266.378 78.3052Z" fill="#FFFFD7" stroke="#FFFFD7"/>
 <g 
+onClick={() => handleGroupClick("nativ")}
 style={{
     opacity: activeGroup === "nativ" ? 1 : 0,
     pointerEvents: activeGroup === "nativ" ? "auto" : "none",
@@ -47,6 +63,7 @@ style={{
 </g>
 
 <g
+onClick={() => handleClick("haskala")}
 style={{
     opacity: activeGroup === "haskala" ? 1 : 0,
     pointerEvents: activeGroup === "haskala" ? "auto" : "none",
@@ -62,6 +79,7 @@ style={{
 </g>
 
 <g
+onClick={() => handleClick("siba")}
 style={{
     opacity: activeGroup === "siba" ? 1 : 0,
     pointerEvents: activeGroup === "siba" ? "auto" : "none",
@@ -78,6 +96,7 @@ style={{
 </g>
 
 <g
+onClick={() => handleClick("hshomer")}
 style={{
     opacity: activeGroup === "hshomer" ? 1 : 0,
     pointerEvents: activeGroup === "hashomer" ? "auto" : "none",
@@ -95,6 +114,7 @@ style={{
 </g>
 
 <g
+onClick={() => handleClick("ivrit")}
 style={{
     opacity: activeGroup === "ivrit" ? 1 : 0,
     pointerEvents: activeGroup === "ivrit" ? "auto" : "none",
@@ -112,19 +132,34 @@ style={{
 
 
 {/* שקוף של עברית */}
-<path d="M47.8805 161.8C59.9524 154.696 82.0476 151 82.0476 151L84 215.31C84 215.31 59.0642 218.578 46.4162 210.892C34.3729 203.573 22.5878 195.297 25.4278 181.437C27.7732 169.991 37.8514 167.702 47.8805 161.8Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => setActiveGroup("ivrit")}
+<path d="M47.8805 161.8C59.9524 154.696 82.0476 151 82.0476 151L84 215.31C84 215.31 59.0642 218.578 46.4162 210.892C34.3729 203.573 22.5878 195.297 25.4278 181.437C27.7732 169.991 37.8514 167.702 47.8805 161.8Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => {
+  handleGroupClick("ivrit");
+  setActiveGroup("ivrit");
+}}
 />
 {/* שקוף של חוות השומר */}
-<path d="M85 215.5V150C85 150 105.618 146.015 119 145C133.408 143.907 156 145 156 145V215.5H85Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => setActiveGroup("hshomer")}
+<path d="M85 215.5V150C85 150 105.618 146.015 119 145C133.408 143.907 156 145 156 145V215.5H85Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => {
+  handleGroupClick("hshomer");
+  setActiveGroup("hshomer");
+}}
 />
 {/* שקוף סיבה */}
-<path d="M156.5 215.5V144L205 146V215.5H156.5Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => setActiveGroup("siba")}
+<path d="M156.5 215.5V144L205 146V215.5H156.5Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => {
+  handleGroupClick("siba");
+  setActiveGroup("siba");
+}}
 />
 {/* שקוף של קורס השכלה */}
-<path d="M205.5 213.5L207 145H254.5L257.5 215L205.5 213.5Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => setActiveGroup("haskala")}
+<path d="M205.5 213.5L207 145H254.5L257.5 215L205.5 213.5Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => {
+  handleGroupClick("haskala");
+  setActiveGroup("haskala");
+}} 
 />
 {/* שקוף של קורס נתיב */}
-<path d="M267.8 140.95C263.737 143.352 256 143.435 256 143.435L261.408 213L277.633 211.509L296.808 199.584L306.642 185.174L310.083 168.776L315 158.839L275.175 133C275.175 133 271.435 138.802 267.8 140.95Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => setActiveGroup("nativ")}
+<path d="M267.8 140.95C263.737 143.352 256 143.435 256 143.435L261.408 213L277.633 211.509L296.808 199.584L306.642 185.174L310.083 168.776L315 158.839L275.175 133C275.175 133 271.435 138.802 267.8 140.95Z" fill="#D9D9D9" fillOpacity="0.1" onClick={() => {
+  handleGroupClick("nativ");
+  setActiveGroup("nativ");
+}}
 />
 <defs>
 <filter id="filter0_f_239_4" x="271.523" y="89.1837" width="55.5045" height="50.4698" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">

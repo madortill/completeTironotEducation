@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FlipCard from "../components/FlipCard";
 import "../css/IDFspirit.css";
 import narrowBtnFlip from "../assets/images/IDFspirit/narrowBtnFlip.png";
 
 
-function FlipCardContainer({ setPage }) {
+function FlipCardContainer({
+  setPage,
+  answers,
+  setAnswers,
+  flipped,
+  setFlipped,
+  onCompleteChange
+}) {
   // 👇 הכרטיסים שלך – תשני לפי הצורך
   const cards = [
     { front: "דבקות במשימה וחתירה לניצחון" },
@@ -20,8 +27,6 @@ function FlipCardContainer({ setPage }) {
   ];
 
   const [pageIndex, setPageIndex] = useState(0);
-  const [flipped, setFlipped] = useState(new Set());
-  const [answers, setAnswers] = useState({});
 
   const pages = [
     cards.slice(0, 5),
@@ -48,9 +53,17 @@ function FlipCardContainer({ setPage }) {
   const allFlipped = flipped.size === cards.length;
 
   // 💡 (אופציונלי) לבדוק שגם כתבו משהו
-  const allAnswered = Object.keys(answers).length === cards.length &&
-    Object.values(answers).every((val) => val.trim() !== "");
+  const answeredCount = Object.values(answers).filter(
+    (val) => val.trim() !== ""
+  ).length;
+  
+  const isDone = answeredCount >= 5;
+  useEffect(() => {
+    const answeredCount = Object.values(answers).filter(v => v.trim() !== "").length;
+    onCompleteChange?.(answeredCount >= 5);
+  }, [answers]);
 
+    const remaining = Math.max(0, 5 - answeredCount);
   return (
     <div className="flip-page">
 
@@ -78,7 +91,13 @@ function FlipCardContainer({ setPage }) {
           );
         })}
       </div>
-
+      <div className="progress-text">
+  {!isDone ? (
+    <p>נשארו עוד {remaining} תשובות</p>
+  ) : (
+    <p className="done-text">מעולה! אפשר להמשיך ✔</p>
+  )}
+</div>
       <div className="cards-navigation">
       <img src={narrowBtnFlip} alt="narrowBtnFlip" className={`narrowBtnFlip narrowBtnFlip-L ${pageIndex === 0 ? "disabled" : ""}`}
           onClick={() => setPageIndex(0)} />
@@ -88,21 +107,7 @@ function FlipCardContainer({ setPage }) {
 
       </div>
 
-      {/* 👉 תבחרי מה את רוצה להפעיל */}
-      
-      {/* רק לפי flip */}
-      {allFlipped && (
-        <button className="nextBtn next-page-btn" onClick={() => setPage(0)}>
-          סיום המשימה
-        </button>
-      )}
 
-      {/* או לפי כתיבה + flip */}
-      {/* {allFlipped && allAnswered && (
-        <button className="nextBtn next-page-btn" onClick={() => setPage(0)}>
-          סיום המשימה
-        </button>
-      )} */}
     </div>
   );
 }

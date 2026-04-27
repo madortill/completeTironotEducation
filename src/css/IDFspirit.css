@@ -179,7 +179,18 @@
        align-items: center;
    }
    
-   
+   .progress-text {
+    text-align: center;
+    margin-top: 10px;
+    font-family: rubik;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .done-text {
+    color: #2e7d32;
+    font-weight: bold;
+  }
    .change-bag-size {
        width: 12rem;
        height: 12rem;

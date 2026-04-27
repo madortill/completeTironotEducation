@@ -22,6 +22,14 @@ import FlipCardContainer from "../../components/FlipCardContainer.jsx";
 function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
   const [showStars, setShowStars] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [text, setText] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+  const [confirmSubmit, setConfirmSubmit] = useState(false);
+  const [flipDone, setFlipDone] = useState(false);
+  const [flipAnswers, setFlipAnswers] = useState({});
+  const [flipFlipped, setFlipFlipped] = useState(new Set());
+
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
   useEffect(() => {
     if (page === 0) {
@@ -56,11 +64,6 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
     }
   };
 
-  const [text, setText] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [showWarning, setShowWarning] = useState(false);
-  const [confirmSubmit, setConfirmSubmit] = useState(false);
-
   const handleSubmit = () => {
     if (isSubmitted) return;
 
@@ -87,6 +90,9 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
   const characterImg = character === "fairy" ? fairyComment : elfComment;
 
   const [showComment, setShowComment] = useState(false);
+  // תנאי לכפתור
+  const isNextDisabled =
+    (page === 1 && !isSubmitted) || (page === 8 && !flipDone);
 
   return (
     <div>
@@ -235,7 +241,14 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
             כתבו על חמישה ערכים, מדוע הוא חשוב לדעתכם לביצוע המשימות ולמימוש
             ייעודו של צה”ל, (כפי שרשום במבוא של רוח צה”ל)
           </p>
-          <FlipCardContainer setPage={setPage} />
+          <FlipCardContainer
+            setPage={setPage}
+            answers={flipAnswers}
+            setAnswers={setFlipAnswers}
+            flipped={flipFlipped}
+            setFlipped={setFlipFlipped}
+            onCompleteChange={setFlipDone}
+          />
         </div>
       )}
 
@@ -281,8 +294,11 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
         <img
           src={nextBtn}
           alt="next"
-          className="nextBtn nav-btns"
-          onClick={handleNext}
+          className={`nextBtn nav-btns ${isNextDisabled ? "disabled" : ""}`}
+          onClick={() => {
+            if (isNextDisabled) return;
+            handleNext();
+          }}
         />
       </div>
     </div>
