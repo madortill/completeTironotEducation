@@ -14,11 +14,11 @@ const navigate = useNavigate();
   const [course, setCourse] = useState("");
 
   const courses = [
-    "משקית חינוך",
-    "רכזת חינוך",
-    "מדנית",
-    "קצינת חינוך",
-    "משקית הוראה"
+    "חינוך",
+    'גדנ"ע',
+    "גשרים",
+    'הו"ד',
+    "תקומה"
   ];
 
   // בדיקת שם
