@@ -47,14 +47,14 @@ function Apple({ onBack, openedApple }) {
 <path d="M307 39C307.41 40.56 310.68 40.5 311 39C311.66 39.05 312.34 38.96 313 39L314 41C314.1 41.55 314.04 42.4 314 43C311.07 42.4 312.21 44.46 311.72 46.17C311.05 48.5 310.75 50.71 309.3 52.8L305 69C284.86 108.48 241.33 123.4 199.07 113.92C203.92 79.54 243.14 45.37 277 42C285.45 41.16 295.16 39.9 304 39C304.98 38.9 306.01 39.06 307 39Z" fill="#3C8C3E" onClick={onBack}
   style={{ cursor: "pointer" }}/>
   <text
-   x="260"
-   y="75"
-   textAnchor="middle"
-   fill="white"
-   fontSize="20px"
-   fontFamily="rubik-bold"
-   direction="rtl"
-   unicodeBidi="plaintext"
+  x="260"
+  y="75"
+  textAnchor="middle"
+  fill="white"
+  fontSize="20px"
+  fontFamily="rubik-bold"
+  direction="rtl"
+  style={{ direction: "rtl" }}
 >
 <tspan x="260" dy="0">חזרה</tspan>
 <tspan x="260" dy="22">לעץ</tspan>
