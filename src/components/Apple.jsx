@@ -46,19 +46,22 @@ function Apple({ onBack, openedApple }) {
 {/* עלה */}
 <path d="M307 39C307.41 40.56 310.68 40.5 311 39C311.66 39.05 312.34 38.96 313 39L314 41C314.1 41.55 314.04 42.4 314 43C311.07 42.4 312.21 44.46 311.72 46.17C311.05 48.5 310.75 50.71 309.3 52.8L305 69C284.86 108.48 241.33 123.4 199.07 113.92C203.92 79.54 243.14 45.37 277 42C285.45 41.16 295.16 39.9 304 39C304.98 38.9 306.01 39.06 307 39Z" fill="#3C8C3E" onClick={onBack}
   style={{ cursor: "pointer" }}/>
-  <text
-  x="260"
-  y="75"
-  textAnchor="middle"
-  fill="white"
-  fontSize="20px"
-  fontFamily="rubik-bold"
-  direction="rtl"
-  style={{ direction: "rtl" }}
->
-<tspan x="260" dy="0">חזרה</tspan>
-<tspan x="260" dy="22">לעץ</tspan>
-</text>
+<foreignObject x="200" y="55" width="120" height="50"  pointerEvents="none">
+  <div
+    xmlns="http://www.w3.org/1999/xhtml"
+    style={{
+      color: "white",
+      fontSize: "20px",
+      fontFamily: "rubik-bold",
+      textAlign: "center",
+      direction: "rtl",
+      lineHeight: "1.2",
+      pointerEvents: "none",
+    }}
+  >
+    חזרה<br />לעץ
+  </div>
+</foreignObject>
 <path d="M178.67 66.1C180.76 65.9 182.73 71.23 183.47 73.03C192.21 94.06 194.59 118.84 194.79 141.39C183.34 148.44 186.22 132.29 184.94 125.56C183.52 118.07 178.5 102.15 175.18 95.32C173.04 90.92 163.66 78.86 163.13 75.3C162.69 72.36 176.57 68.67 178.67 66.1Z" fill="#53330B"/>
 <path d="M314 43C313.35 52.1 309.05 61.06 305 69L309.3 52.8C310.75 50.7 311.05 48.5 311.72 46.17C312.21 44.47 311.07 42.4 314 43Z" fill="#418946"/>
 <path d="M304 39C295.16 39.9 285.45 41.16 277 42C285.68 39.26 294.96 38.77 304 39Z" fill="#418946"/>
