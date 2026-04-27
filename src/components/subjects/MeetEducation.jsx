@@ -5,6 +5,8 @@ import IconBahadClick from "../../components/IconBahadClick";
 import ArrayEducation from "../../components/ArrayEducation";
 import ArrayShield from "../../components/ArrayShield";
 
+import sparkleSound from "../../assets/audio/sparkle.mp3";
+
 import fairyBubbleTalk from "../../assets/images/characters/fairy/bubbleTalk.png";
 import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.png";
 import fairyComment from "../../assets/images/characters/fairy/comment.png";
@@ -43,6 +45,16 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
       setShowStars(false); // אם לא בעמוד 0, לא להראות כוכבים
     }
   }, [page]);
+  
+  useEffect(() => {
+    if (showStars) {
+      const audio = new Audio(sparkleSound);
+      audio.volume = 0.6; // אופציונלי
+      audio.play().catch(() => {
+        // מונע קריסה אם הדפדפן חוסם autoplay
+      });
+    }
+  }, [showStars]);
 
   const handleNext = () => {
     if (page < totalPages - 1) {
