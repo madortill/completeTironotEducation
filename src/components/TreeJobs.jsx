@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Apple from "../components/Apple";
 
-function TreeJobs() {
+function TreeJobs({ onAllApplesDone }) {
   const [openedApple, setOpenedApple] = useState(null); // איזה תפוח פתוח עכשיו
   const [applesWithWorm, setApplesWithWorm] = useState([]); // על אילו תפוחים יש תולעת
-
+  // בודק שכל התפוחים נפתחו
+  const TOTAL_APPLES = 5;
+  useEffect(() => {
+    if (applesWithWorm.length === TOTAL_APPLES) {
+      onAllApplesDone(true);
+    }
+  }, [applesWithWorm]);
+  
   // לחיצה על תפוח → פותחת אותו
   const openApple = (id) => {
     setOpenedApple(id);
@@ -26,6 +33,7 @@ function TreeJobs() {
       </div>
     );
   }
+
 
   return (
     <div>

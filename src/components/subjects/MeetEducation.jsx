@@ -27,6 +27,11 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
   const totalProgressPages = totalPages - 1;
 
   const [showStars, setShowStars] = useState(false); // מצב לפייד אין
+  const [allFlamesClicked, setAllFlamesClicked] = useState(false);
+
+  const handleAllFlamesClicked = (value) => {
+    setAllFlamesClicked(value);
+  };
 
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
   useEffect(() => {
@@ -79,6 +84,12 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
     setSelectedArray(null); // חזרה למסך הבחירה
   };
 
+  // תנאי לכפתור
+  const isNextDisabled =
+    (page === 1 && !allFlamesClicked) ||
+    (page === 4 &&
+      (!finishedArrays.edu || !finishedArrays.shield || selectedArray));
+
   return (
     <div>
       {/* {page !== 0 && (
@@ -87,15 +98,15 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
       </div>
       )} */}
       {page !== 0 && (
-      <div className="progress-bar-container">
-  <div
-    className="progress-bar"
-    style={{
-      width: `${(progress / totalProgressPages) * 100}%`,
-    }}
-  />
-</div>
-)}
+        <div className="progress-bar-container">
+          <div
+            className="progress-bar"
+            style={{
+              width: `${(progress / totalProgressPages) * 100}%`,
+            }}
+          />
+        </div>
+      )}
       {page === 0 && (
         <div className="page1 page">
           <p className="title-chapter">- פרק 1 -</p>
@@ -121,7 +132,7 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
             מפקדת החיל.
           </p>
           <p className="sec-title-content">לחצו על הלהבות!</p>
-          <IconBahadClick />
+          <IconBahadClick onAllFlamesClicked={handleAllFlamesClicked} />
         </div>
       )}
 
@@ -237,8 +248,11 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
           <img
             src={nextBtn}
             alt="next"
-            className="nextBtn nav-btns"
-            onClick={handleNext}
+            className={`nextBtn nav-btns ${isNextDisabled ? "disabled" : ""}`}
+            onClick={() => {
+              if (isNextDisabled) return;
+              handleNext();
+            }}
           />
         </div>
       )}

@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import '../css/meetEducation.css';
 
-function IconBahadClick() {
+function IconBahadClick({ onAllFlamesClicked }) {
     const [selectedFlame, setSelectedFlame] = useState(null);
+    const [clickedFlames, setClickedFlames] = useState([]);
+
+useEffect(() => {
+  if (clickedFlames.length === 4) {
+    onAllFlamesClicked(true);
+  }
+}, [clickedFlames]);
 
     const theValues = {
         mamlachtiut: "ממלכתיות",
@@ -10,21 +17,46 @@ function IconBahadClick() {
   mission: "המשימה",
   command: "מפקדה"
    }
+
+   const handleFlameClick = (flame) => {
+    setSelectedFlame(flame);
+  
+    setClickedFlames((prev) => {
+      if (prev.includes(flame)) return prev; // לא להוסיף פעמיים
+      return [...prev, flame];
+    });
+  };
   return (
     <div>
-        <div className="text-box">
+        {/* <div className="text-box">
   {theValues[selectedFlame]}
-</div>
+</div> */}
         <svg width="277" height="393" viewBox="0 0 307 393" fill="none" style={{ transform: "translateY(-20px)" }} xmlns="http://www.w3.org/2000/svg">
+        {selectedFlame && (
+  <>
+    <rect
+      x="93.3"
+      y="20"
+      width="139"
+      height="74"
+      rx="20"
+      fill="#477FA3"
+    />
 
-{/* המקום בו הטקסט נכנס */}
-<rect x="93.3" y="20" width="139" height="74" rx="20" fill="#477FA3"/>
+    <foreignObject x="93.3" y="42" width="139" height="74">
+      <div xmlns="http://www.w3.org/1999/xhtml" className="text-box">
+        {theValues[selectedFlame]}
+      </div>
+    </foreignObject>
+  </>
+)}
+
 <g filter="url(#filter0_f_165_37)">
 <path d="M141.506 131.381C151.897 123.527 158.68 120.115 170.859 115.158C179.512 111.635 193.744 108 193.744 108C193.744 108 190.09 115.263 187.774 119.929C184.637 126.252 183.504 130.111 179.814 136.153C176.709 141.238 172.067 142.782 170.859 148.559C169.325 155.897 173.075 160.416 177.327 166.692C180.546 171.444 183.743 173.046 187.774 177.189C194.721 184.329 198.292 188.614 205.187 195.799C211.33 202.201 216.202 204.704 221.107 212.023C226.199 219.62 228.368 224.611 230.062 233.495C231.601 241.561 231.821 246.467 230.062 254.491C227.266 267.251 212.152 283.121 212.152 283.121C212.152 283.121 194.196 300.619 179.814 307.457C167.308 313.402 145.486 317 145.486 317C145.486 317 108.129 308.344 93.2481 291.71C81.8019 278.915 74.7165 268.953 75.3378 252.105C75.6127 244.651 77.7256 240.68 79.8154 233.495C84.5276 217.296 88.8302 208.659 96.2331 193.413C103.316 178.826 106.734 170.142 116.631 157.148C125.066 146.075 130.276 139.87 141.506 131.381Z" fill="#C38D94"/>
 </g>
 {/* הלהבה הלבנה- מפקדת החיל */}
 <path
- onClick={() => setSelectedFlame("command")}
+ onClick={() => handleFlameClick("command")}
   style={{
     cursor: "pointer",
     opacity:
@@ -33,7 +65,7 @@ function IconBahadClick() {
  d="M157.767 306.384C157.645 305.895 158.205 306.191 158.468 305.804C174.361 282.532 175.589 261.528 161.606 237.15C158.507 231.75 154.649 226.678 151.493 221.303C142.929 206.719 134.668 183.955 135.838 167.425C137.124 149.256 156.797 125.011 176.753 120.192C180.038 119.4 183.471 119.304 186.801 118.723C186.062 119.703 185.13 120.797 184.249 121.674C173.866 132.013 166.048 140.465 164.029 155.018C159.979 184.209 175.762 196.791 188.389 220.638C194.805 232.748 198.097 250.53 196.426 263.856C194.002 283.221 176.058 297.956 157.767 306.384Z" fill="#FDFDFD"/>
 {/* הלהבה השלישית - המשימה */}
 <path
-onClick={() => setSelectedFlame("mission")}
+onClick={() => handleFlameClick("mission")}
   style={{
     cursor: "pointer",
     opacity:
@@ -42,7 +74,7 @@ onClick={() => setSelectedFlame("mission")}
  d="M156.302 305.072L155.26 300.598C154.174 293.857 154.341 287.671 151.139 281.335C145.289 269.763 133.15 261.189 124.966 250.711C112.828 235.179 104.682 209.41 113.4 191.229C117.547 182.583 125.525 175.642 131.292 167.927C131.652 168.042 131.492 168.755 131.466 169.07C131.119 173.435 129.846 177.794 129.646 182.202C128.431 209.077 154.669 233.727 162.969 259.212C168.009 274.684 164.923 291.136 156.295 305.066L156.302 305.072Z" fill="#2DA6DC"/>
 {/* הלהבה הכי ימנית- האדם */}
 <path 
-onClick={() => setSelectedFlame("adam")}
+onClick={() => handleFlameClick("adam")}
   style={{
     cursor: "pointer",
     opacity:
@@ -50,8 +82,8 @@ onClick={() => setSelectedFlame("adam")}
   }}
 d="M162.152 307.37L182.564 295.362C193.719 287.641 208.532 273.493 209.618 260.282C210.235 252.743 209.393 244.242 207.548 236.89C200.013 206.858 156.154 181.368 175.287 147.745C175.46 147.436 175.48 146.965 176.02 146.929C178.9 158.821 183.818 170.847 192.105 180.545C199.659 189.385 209.059 197.033 216.909 205.504C229.806 219.422 233.708 241.237 228.057 258.481C222.753 274.654 203.33 291.251 187.219 299.22C179.337 303.119 170.999 305.798 162.146 307.364L162.152 307.37Z" fill="#0D5B9F"/>
 {/* הלהבה הכי שמאלית- ממלכתיות */}
-<path 
-onClick={() => setSelectedFlame("mamlachtiut")}
+<path
+onClick={() => handleFlameClick("mamlachtiut")} 
   style={{
     cursor: "pointer",
     opacity:

@@ -22,6 +22,10 @@ body {
   overflow:  hidden;
   /* background-color: #FEECD8; */
 }
+::selection {
+  background-color: #d498a0d8;
+  color: white;
+}
 
 .app {
   display: flex;

@@ -13,9 +13,13 @@ function ArrayShield({ finish }) {
   const [hasClickedGoal, setHasClickedGoal] = useState(false);
   const [hasClickedBtn, setHasClickedBtn] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [allApplesDone, setAllApplesDone] = useState(false);
 
-  const canFinish = hasClickedGoal && hasClickedBtn;
-
+  // תנאי לכפתור
+  const canFinish =
+  innerPage === 0
+    ? hasClickedGoal && hasClickedBtn
+    : allApplesDone;
   // ניווט פנימי
   const handleNextInner = () => {
     if (innerPage === 0 && canFinish) {
@@ -75,7 +79,7 @@ function ArrayShield({ finish }) {
             מקצועות המערך
           </p>
           
-          <TreeJobs />
+          <TreeJobs onAllApplesDone={setAllApplesDone}/>
         </div>
       )}
 
@@ -127,7 +131,7 @@ function ArrayShield({ finish }) {
           src={nextBtn}
           alt="next"
           className={`nextBtn nav-btns ${
-            (innerPage === 0 && !canFinish) ? "disabled-btn-edu" : ""
+            (!canFinish) ? "disabled-btn-edu" : ""
           }`}
           onClick={handleNextInner}
         />
