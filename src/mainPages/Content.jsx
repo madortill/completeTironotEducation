@@ -29,8 +29,6 @@ function Content() {
   // עמודים לכל נושא
   const [subjectPages, setSubjectPages] = useState([0, 0, 0, 0]);
 
-  const subjArr = ["מבוא", "הכירו את חיל החינוך", "רוח צה\"ל", "מגילת צה\"ל"];
-
   // שינוי נושא (הפונקציה המרכזית והיחידה)
   const changeSubject = (index) => {
     setSubjNum(index);
@@ -59,84 +57,161 @@ function Content() {
       return updated;
     });
   };
+  // מעקב אחרי חסימת עמודים פנימית בנושא
+  const [unlockedPages, setUnlockedPages] = useState([
+    [true], // מבוא
+    [true, true, true, true, true, true], // חיל החינוך- שני וחמישי
+    [true, false, true, true, true, true, true, true, false, true],
+    [true, true],
+  ]);
 
-  // מעבר קדימה
-  const goToNextSubject = () => {
-    setSubjNum((prev) => {
-      const next = Math.min(prev + 1, subjArr.length - 1);
-      changeSubject(next);
-      return next;
+  const unlockPage = (subjectIndex, pageIndex) => {
+    setUnlockedPages((prev) => {
+      const updated = prev.map((subject) => [...subject]);
+      updated[subjectIndex][pageIndex] = true;
+      return updated;
     });
+  };
+  const [subjectsProgress, setSubjectsProgress] = useState({
+    meetEducation: {
+      selectedArray: null,
+      finishedArrays: {
+        edu: false,
+        shield: false,
+      },
+      arraysProgress: {
+        edu: {
+          hasClickedGoal: false,
+          selectedTrack: null,
+          currentIndex: 0,
+          finishedTracks: {
+            edu: false,
+            exp: false,
+          },
+        },
+        shield: {
+          innerPage: 0,
+          hasClickedGoal: false,
+          hasClickedBtn: false,
+          hasAnimated: false,
+          allApplesDone: false,
+          openedApple: null,
+          applesWithWorm: [],
+          hodCompleted: false,
+        },
+      },
+    },
+    idfSpirit: {
+      text: "",
+      isSubmitted: false,
+      confirmSubmit: false,
+      showComment: false,
+      flipDone: false,
+      flipAnswers: {},
+      flipFlipped: [],
+    },
+  });
+  const updateMeetEducationProgress = (changes) => {
+    setSubjectsProgress((prev) => ({
+      ...prev,
+      meetEducation: {
+        ...prev.meetEducation,
+
+        // 🔥 merge ל-arraysProgress אם קיים
+        ...(changes.arraysProgress && {
+          arraysProgress: {
+            ...prev.meetEducation.arraysProgress,
+            ...changes.arraysProgress,
+          },
+        }),
+
+        // 🔥 merge רגיל לשאר
+        ...changes,
+      },
+    }));
+  };
+
+  const updateIdfSpiritProgress = (changes) => {
+    setSubjectsProgress((prev) => ({
+      ...prev,
+      idfSpirit: {
+        ...prev.idfSpirit,
+        ...changes,
+      },
+    }));
+  };
+  // מעבר קדימה
+  const goNext = () => {
+    const currentPage = subjectPages[subjNum];
+    const maxPages = subjects[subjNum].pages;
+
+    // חסימה גלובלית
+    if (!unlockedPages[subjNum][currentPage]) {
+      return;
+    }
+
+    // אם יש עוד עמודים
+    if (currentPage < maxPages - 1) {
+      setPageForSubject(subjNum, currentPage + 1);
+      return;
+    }
+
+    // 🔥 כאן זה הסוף של הנושא
+    finishSubject(subjNum);
+
+    // מעבר לנושא הבא
+    const next = Math.min(subjNum + 1, subjects.length - 1);
+
+    setSubjNum(next);
+
+    setVisitedSubjects((prev) => {
+      const updated = [...prev];
+      updated[next] = true;
+      return updated;
+    });
+
+    setPageForSubject(next, 0);
   };
 
   // מעבר אחורה
-  const goToPrevSubject = () => {
-    setSubjNum((prev) => {
-      const next = Math.max(prev - 1, 0);
-      changeSubject(next);
-      return next;
-    });
-  };
+  const goBack = () => {
+    const currentPage = subjectPages[subjNum];
 
-  // רינדור נושאים
-  const renderSubject = () => {
-    switch (subjNum) {
-      case 0:
-        return (
-          <Introduction
-            page={subjectPages[0]}
-            setPage={(p) => setPageForSubject(0, p)}
-            finishSubject={() => {
-              finishSubject(0);
-              goToNextSubject();
-            }}
-            totalPages={2}
-          />
-        );
-
-      case 1:
-        return (
-          <MeetEducation
-            page={subjectPages[1]}
-            setPage={(p) => setPageForSubject(1, p)}
-            finishSubject={() => {
-              finishSubject(1);
-              goToNextSubject();
-            }}
-            goToPrevSubject={goToPrevSubject}
-            totalPages={2}
-          />
-        );
-
-      case 2:
-        return (
-          <IDFspirit
-            page={subjectPages[2]}
-            setPage={(p) => setPageForSubject(2, p)}
-            finishSubject={() => {
-              finishSubject(2);
-              goToNextSubject();
-            }}
-            goToPrevSubject={goToPrevSubject}
-            totalPages={2}
-          />
-        );
-
-      case 3:
-        return (
-          <IDFscroll
-            page={subjectPages[3]}
-            setPage={(p) => setPageForSubject(3, p)}
-            goToPrevSubject={goToPrevSubject}
-            totalPages={2}
-          />
-        );
-
-      default:
-        return null;
+    if (currentPage > 0) {
+      setPageForSubject(subjNum, currentPage - 1);
+      return;
     }
+
+    const prev = Math.max(subjNum - 1, 0);
+
+    setSubjNum(prev);
+    setPageForSubject(prev, subjects[prev].pages - 1);
   };
 
+  const subjects = [
+    {
+      name: "מבוא",
+      component: Introduction,
+      pages: 1,
+    },
+    {
+      name: "הכירו את חיל החינוך",
+      component: MeetEducation,
+      pages: 6,
+    },
+    {
+      name: 'רוח צה"ל',
+      component: IDFspirit,
+      pages: 10,
+    },
+    {
+      name: 'מגילת צה"ל',
+      component: IDFscroll,
+      pages: 2,
+    },
+  ];
+
+  const CurrentSubject = subjects[subjNum].component;
   return (
     <div className="content-page">
       <Navbar
@@ -147,7 +222,24 @@ function Content() {
         visitedSubjects={visitedSubjects}
       />
 
-      {renderSubject()}
+      {/* 👇 זה הלב של המערכת */}
+      <CurrentSubject
+        page={subjectPages[subjNum]}
+        setPage={(p) => setPageForSubject(subjNum, p)}
+        goNext={goNext}
+        goBack={goBack}
+        finishSubject={() => finishSubject(subjNum)}
+        isNextUnlocked={unlockedPages[subjNum][subjectPages[subjNum]]}
+        unlockCurrentPage={() => unlockPage(subjNum, subjectPages[subjNum])}
+        progress={
+          subjNum === 2
+            ? subjectsProgress.idfSpirit
+            : subjectsProgress.meetEducation
+        }
+        setProgress={
+          subjNum === 2 ? updateIdfSpiritProgress : updateMeetEducationProgress
+        }
+      />
     </div>
   );
 }

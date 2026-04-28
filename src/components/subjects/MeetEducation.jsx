@@ -23,9 +23,19 @@ import { useCharacter } from "../../context/CharacterContext";
 import nextBtn from "../../assets/images/introduction/nextBtn.png";
 import backBtn from "../../assets/images/introduction/backBtn.png";
 
-function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
+function MeetEducation({
+  page,
+  setPage,
+  goNext,
+  goBack,
+  finishSubject,
+  isNextUnlocked,
+  unlockCurrentPage,
+  progress,
+  setProgress,
+}) {
   const totalPages = 6; // מספר העמודים בנושא
-  const progress = page === 0 ? 0 : page;
+  const progressValue = page === 0 ? 0 : page;
   const totalProgressPages = totalPages - 1;
 
   const [showStars, setShowStars] = useState(false); // מצב לפייד אין
@@ -33,8 +43,11 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
 
   const handleAllFlamesClicked = (value) => {
     setAllFlamesClicked(value);
-  };
 
+    if (value) {
+      unlockCurrentPage();
+    }
+  };
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
   useEffect(() => {
     if (page === 0) {
@@ -45,7 +58,7 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
       setShowStars(false); // אם לא בעמוד 0, לא להראות כוכבים
     }
   }, [page]);
-  
+
   useEffect(() => {
     if (showStars) {
       const audio = new Audio(sparkleSound);
@@ -56,21 +69,21 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
     }
   }, [showStars]);
 
-  const handleNext = () => {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-    } else {
-      finishSubject(); // אם זה העמוד האחרון → מעבר לנושא הבא
-    }
-  };
+  // const handleNext = () => {
+  //   if (page < totalPages - 1) {
+  //     setPage(page + 1);
+  //   } else {
+  //     finishSubject();
+  //   }
+  // };
 
-  const handleBack = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    } else {
-      goToPrevSubject(); // חזרה לנושא הקודם
-    }
-  };
+  // const handleBack = () => {
+  //   if (page > 0) {
+  //     setPage(page - 1);
+  //   } else {
+  //     goToPrevSubject();
+  //   }
+  // };
 
   const { character } = useCharacter();
 
@@ -81,26 +94,46 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
   const characterImgbubbles = character === "fairy" ? fairyBubbles : elfBubbles;
 
   // בחירת מערך
-  const [selectedArray, setSelectedArray] = useState(null);
-  const [finishedArrays, setFinishedArrays] = useState({
-    edu: false,
-    shield: false,
-  });
+  const {
+    selectedArray,
+    finishedArrays,
+    arraysProgress,
+  } = progress;
 
   const finishArray = (arrayName) => {
-    setFinishedArrays((prev) => ({
-      ...prev,
-      [arrayName]: true,
-    }));
-
-    setSelectedArray(null); // חזרה למסך הבחירה
+    setProgress({
+      finishedArrays: {
+        ...finishedArrays,
+        [arrayName]: true,
+      },
+      selectedArray: null,
+    });
   };
+  useEffect(() => {
+    if (page === 4 && finishedArrays.edu && finishedArrays.shield && !isNextUnlocked) {
+      unlockCurrentPage();
+    }
+  }, [page, finishedArrays.edu, finishedArrays.shield, isNextUnlocked]);
+
+// התקדמות במערכים
+
+const updateArrayProgress = (arrayName, changes) => {
+  setProgress({
+    arraysProgress: {
+      ...arraysProgress,
+      [arrayName]: {
+        ...arraysProgress[arrayName],
+        ...changes,
+      },
+    },
+  });
+};
 
   // תנאי לכפתור
-  const isNextDisabled =
+  const canGoNext = !(
     (page === 1 && !allFlamesClicked) ||
-    (page === 4 &&
-      (!finishedArrays.edu || !finishedArrays.shield || selectedArray));
+    (page === 4 && (!finishedArrays.edu || !finishedArrays.shield))
+  );
 
   return (
     <div>
@@ -114,7 +147,7 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
           <div
             className="progress-bar"
             style={{
-              width: `${(progress / totalProgressPages) * 100}%`,
+              width: `${(progressValue / totalProgressPages) * 100}%`,
             }}
           />
         </div>
@@ -201,14 +234,14 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
                   src={arrayEduImg}
                   alt="arrayEdu"
                   className="arrays-images arrayEdu"
-                  onClick={() => setSelectedArray("edu")}
+                  onClick={() => setProgress({ selectedArray: "edu" })}
                 />
 
                 <img
                   src={arrayShieldImg}
                   alt="arrayShield"
                   className="arrays-images arrayShield"
-                  onClick={() => setSelectedArray("shield")}
+                  onClick={() => setProgress({ selectedArray: "shield" })}
                 />
               </div>
 
@@ -223,11 +256,19 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
           )}
 
           {selectedArray === "edu" && (
-            <ArrayEducation finish={() => finishArray("edu")} />
+            <ArrayEducation
+            progress={arraysProgress.edu}
+            setProgress={(changes) => updateArrayProgress("edu", changes)}
+            finish={() => finishArray("edu")}
+          />
           )}
 
           {selectedArray === "shield" && (
-            <ArrayShield finish={() => finishArray("shield")} />
+            <ArrayShield
+            progress={arraysProgress.shield}
+            setProgress={(changes) => updateArrayProgress("shield", changes)}
+            finish={() => finishArray("shield")}
+          />
           )}
         </div>
       )}
@@ -255,16 +296,13 @@ function MeetEducation({ page, setPage, finishSubject, goToPrevSubject }) {
             src={backBtn}
             alt="back"
             className="backBtn nav-btns"
-            onClick={handleBack}
+            onClick={goBack}
           />
           <img
             src={nextBtn}
             alt="next"
-            className={`nextBtn nav-btns ${isNextDisabled ? "disabled" : ""}`}
-            onClick={() => {
-              if (isNextDisabled) return;
-              handleNext();
-            }}
+            className={`nextBtn nav-btns ${!isNextUnlocked ? "disabled" : ""}`}
+            onClick={() => isNextUnlocked && goNext()}
           />
         </div>
       )}

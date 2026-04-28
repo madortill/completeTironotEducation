@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Apple from "../components/Apple";
 
-function TreeJobs({ onAllApplesDone }) {
-  const [openedApple, setOpenedApple] = useState(null); // איזה תפוח פתוח עכשיו
-  const [applesWithWorm, setApplesWithWorm] = useState([]); // על אילו תפוחים יש תולעת
-  const [hodCompleted, setHodCompleted] = useState(false);
+function TreeJobs({
+  onAllApplesDone,
+  openedApple,
+  setOpenedApple,
+  applesWithWorm,
+  setApplesWithWorm,
+  hodCompleted,
+  setHodCompleted,
+  setTreeProgress
+}) {
+  // const [openedApple, setOpenedApple] = useState(null); 
+  // const [applesWithWorm, setApplesWithWorm] = useState([]); 
+  // const [hodCompleted, setHodCompleted] = useState(false);
   // בודק שכל התפוחים נפתחו
   const TOTAL_APPLES = 5;
   useEffect(() => {
     if (applesWithWorm.length === TOTAL_APPLES) {
       onAllApplesDone(true);
     }
-  }, [applesWithWorm]);
+  }, [applesWithWorm.length]);
+
+
+  console.log("applesWithWorm:", applesWithWorm);
 
   // לחיצה על תפוח → פותחת אותו
   const openApple = (id) => {
@@ -20,10 +32,15 @@ function TreeJobs({ onAllApplesDone }) {
 
   // חזרה מהתפוח → מוסיפה תולעת
   const closeApple = () => {
-    if (openedApple && !applesWithWorm.includes(openedApple)) {
-      setApplesWithWorm((prev) => [...prev, openedApple]);
-    }
-    setOpenedApple(null);
+    const updatedApples =
+      openedApple && !applesWithWorm.includes(openedApple)
+        ? [...applesWithWorm, openedApple]
+        : applesWithWorm;
+  
+    setTreeProgress({
+      applesWithWorm: updatedApples,
+      openedApple: null,
+    });
   };
 
   // אם תפוח פתוח → מציגים רק אותו

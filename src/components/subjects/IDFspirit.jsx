@@ -19,16 +19,29 @@ import elfComment from "../../assets/images/characters/elf/comment.png";
 import "../../css/IDFspirit.css";
 import FlipCardContainer from "../../components/FlipCardContainer.jsx";
 
-function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
+function IDFspirit({
+  page,
+  setPage,
+  goNext,
+  goBack,
+  finishSubject,
+  isNextUnlocked,
+  unlockCurrentPage,
+  progress,
+  setProgress,
+}) {
   const [showStars, setShowStars] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [text, setText] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
-  const [confirmSubmit, setConfirmSubmit] = useState(false);
-  const [flipDone, setFlipDone] = useState(false);
-  const [flipAnswers, setFlipAnswers] = useState({});
-  const [flipFlipped, setFlipFlipped] = useState(new Set());
+  const {
+    text,
+    isSubmitted,
+    confirmSubmit,
+    showComment,
+    flipDone,
+    flipAnswers,
+    flipFlipped,
+  } = progress;
 
   // useEffect שיעלה את הכוכבים אחרי 2 שניות
   useEffect(() => {
@@ -41,7 +54,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
     }
   }, [page]);
   const totalPages = 10; // מספר העמודים בנושא
-  const progress = page === 0 ? 0 : page;
+  const progressValue = page === 0 ? 0 : page;
   const totalProgressPages = totalPages - 1;
   const handleNext = () => {
     if (page === 7) {
@@ -49,19 +62,11 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
       return;
     }
 
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-    } else {
-      finishSubject();
-    }
+    goNext();
   };
 
   const handleBack = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    } else {
-      goToPrevSubject(); // חזרה לנושא הקודם
-    }
+    goBack();
   };
 
   const handleSubmit = () => {
@@ -72,7 +77,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
     // לחיצה ראשונה → רק אזהרה
     if (!confirmSubmit) {
       setShowWarning(true);
-      setConfirmSubmit(true);
+      setProgress({ confirmSubmit: true });
 
       setTimeout(() => {
         setShowWarning(false);
@@ -82,17 +87,24 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
     }
 
     // לחיצה שנייה → הגשה אמיתית
-    setIsSubmitted(true);
+    setProgress({ isSubmitted: true });
   };
 
   const { character } = useCharacter();
 
   const characterImg = character === "fairy" ? fairyComment : elfComment;
 
-  const [showComment, setShowComment] = useState(false);
   // תנאי לכפתור
-  const isNextDisabled =
-    (page === 1 && !isSubmitted) || (page === 8 && !flipDone);
+  const isNextDisabled = !isNextUnlocked;
+  useEffect(() => {
+    if (page === 1 && isSubmitted && !isNextUnlocked) {
+      unlockCurrentPage();
+    }
+
+    if (page === 8 && flipDone && !isNextUnlocked) {
+      unlockCurrentPage();
+    }
+  }, [page, isSubmitted, flipDone, isNextUnlocked]);
 
   return (
     <div>
@@ -101,7 +113,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
           <div
             className="progress-bar"
             style={{
-              width: `${(progress / totalProgressPages) * 100}%`,
+              width: `${(progressValue / totalProgressPages) * 100}%`,
             }}
           />
         </div>
@@ -137,7 +149,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
               className="styled-textarea"
               placeholder="שתפו מחשבה..."
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => setProgress({ text: e.target.value })}
               disabled={isSubmitted}
             />
             <img src={butterfly} className="butterfly" />
@@ -218,7 +230,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
                   className="popup-btn"
                   onClick={() => {
                     setShowPopup(false);
-                    setPage(page + 1);
+                    goNext();
                   }}
                 >
                   המשך
@@ -244,10 +256,31 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
           <FlipCardContainer
             setPage={setPage}
             answers={flipAnswers}
-            setAnswers={setFlipAnswers}
-            flipped={flipFlipped}
-            setFlipped={setFlipFlipped}
-            onCompleteChange={setFlipDone}
+            setAnswers={(value) => {
+              if (typeof value === "function") {
+                setProgress({
+                  flipAnswers: value(flipAnswers),
+                });
+              } else {
+                setProgress({
+                  flipAnswers: value,
+                });
+              }
+            }}
+            flipped={new Set(flipFlipped)}
+            setFlipped={(value) => {
+              if (typeof value === "function") {
+                const result = value(new Set(flipFlipped));
+                setProgress({
+                  flipFlipped: Array.from(result),
+                });
+              } else {
+                setProgress({
+                  flipFlipped: Array.from(value),
+                });
+              }
+            }}
+            onCompleteChange={(value) => setProgress({ flipDone: value })}
           />
         </div>
       )}
@@ -267,7 +300,7 @@ function IDFspirit({ page, setPage, finishSubject, goToPrevSubject }) {
             className={`btnHard ${!showComment ? "grow-shrink" : ""}`}
             src={btnHard}
             alt="btnHard"
-            onClick={() => setShowComment(true)}
+            onClick={() => setProgress({ showComment: true })}
           />
           {showComment && (
             <>

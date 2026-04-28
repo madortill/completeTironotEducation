@@ -7,23 +7,29 @@ import IDFspiritImg from "../../assets/images/introduction/IDFspiritImg.png";
 import IDFscrollImg from "../../assets/images/introduction/IDFscrollImg.png";
 
 
-function Introduction({ page, setPage, finishSubject }) {
+function Introduction({
+  page,
+  setPage,
+  goNext,
+  goBack,
+  finishSubject
+}) {
 
   const totalPages = 1; // מספר העמודים בנושא
 
-  const handleNext = () => {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-    } else {
-      finishSubject(); // אם זה העמוד האחרון -> מעבר לנושא הבא
-    }
-  };
+  // const handleNext = () => {
+  //   if (page < totalPages - 1) {
+  //     setPage(page + 1);
+  //   } else {
+  //     finishSubject(); // אם זה העמוד האחרון -> מעבר לנושא הבא
+  //   }
+  // };
 
-  const handleBack = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    }
-  };
+  // const handleBack = () => {
+  //   if (page > 0) {
+  //     setPage(page - 1);
+  //   }
+  // };
 
   return (
     <div>
@@ -42,18 +48,20 @@ function Introduction({ page, setPage, finishSubject }) {
 
 
       <div className="container-buttons">
-        <img
+      <img
           src={backBtn}
           alt="back"
           className={`backBtn nav-btns ${page === 0 ? "disabled" : ""}`}
-          onClick={page === 0 ? undefined : handleBack}
+          onClick={() => {
+            if (page > 0) goBack();
+          }}
         />
 
         <img
           src={nextBtn}
           alt="next"
           className="nextBtn nav-btns"
-          onClick={handleNext}
+          onClick={() => goNext()}
         />
       </div>
 

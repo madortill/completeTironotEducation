@@ -6,24 +6,26 @@ import goal from "../assets/images/meetEducation/goal.png";
 import nextBtn from "../assets/images/introduction/nextBtn.png";
 import backBtn from "../assets/images/introduction/backBtn.png";
 
-function ArrayShield({ finish }) {
-  const [innerPage, setInnerPage] = useState(0);
-
+function ArrayShield({ finish, progress, setProgress }) {
   const [openGoal, setOpenGoal] = useState(false);
-  const [hasClickedGoal, setHasClickedGoal] = useState(false);
-  const [hasClickedBtn, setHasClickedBtn] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const [allApplesDone, setAllApplesDone] = useState(false);
+  const {
+    innerPage,
+    hasClickedGoal,
+    hasClickedBtn,
+    hasAnimated,
+    allApplesDone,
+    openedApple,
+    applesWithWorm,
+    hodCompleted,
+  } = progress;
 
   // תנאי לכפתור
   const canFinish =
-  innerPage === 0
-    ? hasClickedGoal && hasClickedBtn
-    : allApplesDone;
+    innerPage === 0 ? hasClickedGoal && hasClickedBtn : allApplesDone;
   // ניווט פנימי
   const handleNextInner = () => {
     if (innerPage === 0 && canFinish) {
-      setInnerPage(1);
+      setProgress({ innerPage: 1 });
     } else if (innerPage === 1) {
       finish();
     }
@@ -31,13 +33,13 @@ function ArrayShield({ finish }) {
 
   const handleBackInner = () => {
     if (innerPage === 1) {
-      setInnerPage(0);
+      setProgress({ innerPage: 0 });
     }
   };
 
   return (
     <div className="page">
-       <p className="title-content">מערך מגן</p>
+      <p className="title-content">מערך מגן</p>
       {/* עמוד 1 - כל התוכן הקיים */}
       {innerPage === 0 && (
         <>
@@ -51,20 +53,22 @@ function ArrayShield({ finish }) {
           />
 
           {hasClickedGoal && (
-            <div className={!hasAnimated ? "fade-in" : ""}
-            onAnimationEnd={() => setHasAnimated(true)}>
+            <div
+              className={!hasAnimated ? "fade-in" : ""}
+              onAnimationEnd={() => setProgress({ hasAnimated: true })}
+            >
               <button
-                className={`btn-what ${
-                  !hasClickedBtn ? "grow-shrink" : ""
-                }`}
-                onClick={() => setHasClickedBtn(true)}
+                className={`btn-what ${!hasClickedBtn ? "grow-shrink" : ""}`}
+                onClick={() => setProgress({ hasClickedBtn: true })}
               >
                 בחייאת... מה זה קשור אליי?
               </button>
 
               {hasClickedBtn && (
                 <p className="text-shield">
-                  זה כי במהלך השירות יהיה לכם ממשק עם חיילים ממערך מגן: כחלק מתפקיד מש"ק החינוך אתם הזרוע ה"שיווקית" של כלל המענים של חיל החינוך ביחידה שלכם. לכן חשוב שתכירו את המענים...
+                  זה כי במהלך השירות יהיה לכם ממשק עם חיילים ממערך מגן: כחלק
+                  מתפקיד מש"ק החינוך אתם הזרוע ה"שיווקית" של כלל המענים של חיל
+                  החינוך ביחידה שלכם. לכן חשוב שתכירו את המענים...
                 </p>
               )}
             </div>
@@ -75,11 +79,20 @@ function ArrayShield({ finish }) {
       {/* עמוד 2 - המשך */}
       {innerPage === 1 && (
         <div>
-          <p className="sec-title-content">
-            מקצועות המערך
-          </p>
-          
-          <TreeJobs onAllApplesDone={setAllApplesDone}/>
+          <p className="sec-title-content">מקצועות המערך</p>
+
+          <TreeJobs
+            openedApple={openedApple}
+            applesWithWorm={applesWithWorm}
+            hodCompleted={hodCompleted}
+            setOpenedApple={(value) => setProgress({ openedApple: value })}
+            setApplesWithWorm={(value) =>
+              setProgress({ applesWithWorm: value })
+            }
+            setHodCompleted={(value) => setProgress({ hodCompleted: value })}
+            setTreeProgress={(changes) => setProgress(changes)}
+            onAllApplesDone={(value) => setProgress({ allApplesDone: value })}
+          />
         </div>
       )}
 
@@ -89,7 +102,7 @@ function ArrayShield({ finish }) {
           className="popup-overlay"
           onClick={() => {
             setOpenGoal(false);
-            setHasClickedGoal(true);
+            setProgress({ hasClickedGoal: true });
           }}
         >
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -100,14 +113,15 @@ function ArrayShield({ finish }) {
             </p>
 
             <p className="goal-text">
-              המערך פועל לקידום שילוב אוכלוסיות ייחודיות (נוער בסיכון, עולים חדשים, בעלי מוגבלויות, עדות מיעוט, חסרי תעודת בגרות).
+              המערך פועל לקידום שילוב אוכלוסיות ייחודיות (נוער בסיכון, עולים
+              חדשים, בעלי מוגבלויות, עדות מיעוט, חסרי תעודת בגרות).
             </p>
 
             <p
               className="close-goal-btn"
               onClick={() => {
                 setOpenGoal(false);
-                setHasClickedGoal(true);
+                setProgress({ hasClickedGoal: true });
               }}
             >
               סגור
@@ -130,9 +144,7 @@ function ArrayShield({ finish }) {
         <img
           src={nextBtn}
           alt="next"
-          className={`nextBtn nav-btns ${
-            (!canFinish) ? "disabled-btn-edu" : ""
-          }`}
+          className={`nextBtn nav-btns ${!canFinish ? "disabled-btn-edu" : ""}`}
           onClick={handleNextInner}
         />
       </div>

@@ -8,15 +8,14 @@ import mashakEdu from "../assets/images/meetEducation/mashakEdu.png";
 import mashakExp from "../assets/images/meetEducation/mashakExp.png";
 import arrow from "../assets/images/meetEducation/arrow.png";
 
-function ArrayEducation({ finish }) {
+function ArrayEducation({ finish, progress, setProgress }) {
   const [openGoal, setOpenGoal] = useState(false);
-  const [hasClickedGoal, setHasClickedGoal] = useState(false);
-  const [selectedTrack, setSelectedTrack] = useState(null); // ברירת מחדל
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [finishedTracks, setFinishedTracks] = useState({
-    edu: false,
-    exp: false
-  });
+  const {
+    hasClickedGoal,
+    selectedTrack,
+    currentIndex,
+    finishedTracks,
+  } = progress;
   const canFinish = finishedTracks.edu && finishedTracks.exp;
   const textsMashakEdu = [
     "מש״ק החינוך ישתבץ בסיום הקורס ביחידה ספציפית אליה הוא יהיה משויך (בשונה ממש״ק ההסברה אשר אליו מגיעות יחידות שונות בכל פעם). תפקידו הינו קידום תחום החינוך ביחידה זו.",
@@ -35,14 +34,18 @@ function ArrayEducation({ finish }) {
   useEffect(() => {
     if (!selectedTrack) return;
   
-    const isLast =
-      currentIndex === currentTexts.length - 1;
+    const texts =
+      selectedTrack === "edu" ? textsMashakEdu : textsMashakExp;
+  
+    const isLast = currentIndex === texts.length - 1;
   
     if (isLast && !finishedTracks[selectedTrack]) {
-      setFinishedTracks((prev) => ({
-        ...prev,
-        [selectedTrack]: true
-      }));
+      setProgress({
+        finishedTracks: {
+          ...finishedTracks,
+          [selectedTrack]: true,
+        },
+      });
     }
   }, [currentIndex, selectedTrack]);
 
@@ -71,8 +74,10 @@ function ArrayEducation({ finish }) {
   alt="mashakEdu"
   className={`mashakEdu ${selectedTrack === "edu" ? "glow" : ""}`}
   onClick={() => {
-    setSelectedTrack("edu");
-    setCurrentIndex(0);
+    setProgress({
+      selectedTrack: "edu",
+      currentIndex: 0,
+    });
   }}
 />
 
@@ -84,8 +89,10 @@ function ArrayEducation({ finish }) {
   } ${!finishedTracks.edu ? "locked" : ""}`}
   onClick={() => {
     if (!finishedTracks.edu) return; // 🔒 נעול עד שמסיימים edu
-    setSelectedTrack("exp");
-    setCurrentIndex(0);
+    setProgress({
+      selectedTrack: "exp",
+      currentIndex: 0,
+    });
   }}
 />
         </div>
@@ -105,7 +112,9 @@ function ArrayEducation({ finish }) {
                     }`}
                     onClick={() => {
                       if (currentIndex > 0) {
-                        setCurrentIndex((prev) => prev - 1);
+                        setProgress({
+                          currentIndex: currentIndex - 1,
+                        });
                       }
                     }}
                   />
@@ -120,7 +129,9 @@ function ArrayEducation({ finish }) {
                     }`}
                     onClick={() => {
                       if (currentIndex < currentTexts.length - 1) {
-                        setCurrentIndex((prev) => prev + 1);
+                        setProgress({
+                          currentIndex: currentIndex + 1,
+                        });
                       }
                     }}
                   />
@@ -137,7 +148,7 @@ function ArrayEducation({ finish }) {
           className="popup-overlay"
           onClick={() => {
             setOpenGoal(false);
-            setHasClickedGoal(true);
+            setProgress({ hasClickedGoal: true });
           }}
         >
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -157,7 +168,7 @@ function ArrayEducation({ finish }) {
               className="close-goal-btn"
               onClick={() => {
                 setOpenGoal(false);
-                setHasClickedGoal(true);
+                setProgress({ hasClickedGoal: true });
               }}
             >
               סגור
