@@ -19,17 +19,22 @@ import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.png";
 import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.png";
 import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png";
 
-
-function IDFscroll({ page, setPage, goToPrevSubject }) {
+function IDFscroll({
+  page,
+  goNext,
+  goBack,
+  isNextUnlocked,
+  unlockCurrentPage,
+  progress,
+  setProgress,
+}) {
   const navigate = useNavigate();
-  
+  const { isOpen, isOpenGoal, openedGroups = [] } = progress || {};
   const [showStars, setShowStars] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenGoal, setIsOpenGoal] = useState(false);
-  const [openedCount, setOpenedCount] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+  const openedGroupsCount = openedGroups.length;
   const location = useLocation();
-const userName = location.state?.userName;
+  const userName = location.state?.userName;
 
   useEffect(() => {
     if (page === 0) {
@@ -41,7 +46,7 @@ const userName = location.state?.userName;
     }
   }, [page]);
   const totalPages = 5; // מספר העמודים בנושא
-  const progress = page === 0 ? 0 : page;
+  const progressValue = page === 0 ? 0 : page;
   const totalProgressPages = totalPages - 1;
 
   const handleNext = () => {
@@ -49,34 +54,38 @@ const userName = location.state?.userName;
       setShowPopup(true);
       return;
     }
-  
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-    } else {
-      finishSubject();
-    }
+
+    goNext();
   };
+
   const handleBack = () => {
-    if (page > 0) {
-      setPage(page - 1); // מעבר לעמוד קודם
-    } else {
-      goToPrevSubject(); // חזרה לנושא הקודם
-    }
+    goBack();
   };
   // הדמות
   const { character } = useCharacter();
 
-  const characterImg = character === "fairy" ? fairyStarsIndipendent : elfStarsIndipendent;
-  const characterImg2 = character === "fairy" ? fairyStarsSpirit : elfStarsSpirit;
+  const characterImg =
+    character === "fairy" ? fairyStarsIndipendent : elfStarsIndipendent;
+  const characterImg2 =
+    character === "fairy" ? fairyStarsSpirit : elfStarsSpirit;
   const characterEnd = character === "fairy" ? fairyBubbles : elfBubbles;
 
   const endLomda = () => {
-    navigate("/end", {
-    });
+    navigate("/end", {});
   };
+
+  useEffect(() => {
+    if (page === 1 && isOpenGoal && !isNextUnlocked) {
+      unlockCurrentPage();
+    }
+
+    if (page === 2 && openedGroupsCount >= 15 && !isNextUnlocked) {
+      unlockCurrentPage();
+    }
+  }, [page, isOpenGoal, openedGroupsCount, isNextUnlocked]);
   // תנאים לכפתור
   const isNextDisabled =
-    (page === 1 && !isOpenGoal) || (page === 2 && openedCount < 15);
+    (page === 1 && !isOpenGoal) || (page === 2 && openedGroupsCount < 15);
 
   return (
     <div>
@@ -85,7 +94,7 @@ const userName = location.state?.userName;
           <div
             className="progress-bar"
             style={{
-              width: `${(progress / totalProgressPages) * 100}%`,
+              width: `${(progressValue / totalProgressPages) * 100}%`,
             }}
           />
         </div>
@@ -121,7 +130,7 @@ const userName = location.state?.userName;
               alt="scroll"
               className={`scroll-img 
       ${isOpen ? "scrollWithText fade-in" : "closeScroll floating"}`}
-              onClick={() => setIsOpen(true)}
+              onClick={() => setProgress({ isOpen: true })}
             />
           </div>
           {isOpen && (
@@ -130,7 +139,7 @@ const userName = location.state?.userName;
                 src={goal}
                 alt="goal"
                 className={`goal-scroll ${!isOpenGoal ? "pulse" : ""}`}
-                onClick={() => setIsOpenGoal(true)}
+                onClick={() => setProgress({ isOpenGoal: true })}
               />
               <div
                 className={`goal-scroll-text-con ${isOpenGoal ? "show" : ""}`}
@@ -151,14 +160,30 @@ const userName = location.state?.userName;
             המגילה מחולקת ל-15 פסקאות שכל פסקה מתמקדת ברכיב אחר בזהות צה"ל:
           </p>
           <p className="sec-title-content">לחצו על הפסקאות להשלמת הפאזל!</p>
-          <Pazzle onProgressChange={setOpenedCount} />
-          <p className={`identity-text ${openedCount >= 15 ? "show" : ""}`}>
+          <Pazzle
+            openedGroups={openedGroups}
+            setOpenedGroups={(value) => {
+              if (typeof value === "function") {
+                setProgress({
+                  openedGroups: value(openedGroups),
+                });
+              } else {
+                setProgress({
+                  openedGroups: value,
+                });
+              }
+            }}
+            onProgressChange={(value) => setProgress({ openedGroupsCount: value })}
+          />
+          <p
+            className={`identity-text ${openedGroupsCount >= 15 ? "show" : ""}`}
+          >
             כל הפסקאות יחדיו מגדירות את זהות צה”ל!
           </p>
         </div>
       )}
 
-            {page === 3 && (
+      {page === 3 && (
         <div className=" page page4">
           <p className="title-content">מגילת צה"ל בהשוואה</p>
           <p className="sec-title-content">מגילת העצמאות ומגילת צה"ל</p>
@@ -166,7 +191,7 @@ const userName = location.state?.userName;
         </div>
       )}
 
-{page === 4 && (
+      {page === 4 && (
         <div className=" page page5">
           <p className="title-content">מגילת צה"ל בהשוואה</p>
           <p className="sec-title-content">מגילת העצמאות ומגילת צה"ל</p>
@@ -174,25 +199,29 @@ const userName = location.state?.userName;
         </div>
       )}
       {showPopup && (
-  <div className="popup-overlay">
-    <div className="popup-center">
-    <div className="popup-box">
-      <img src={characterEnd} alt="characterEnd" className="characterEnd" />
-      <p className="popup-title">כל הכבוד {userName} סיימת!</p>
+        <div className="popup-overlay">
+          <div className="popup-center">
+            <div className="popup-box">
+              <img
+                src={characterEnd}
+                alt="characterEnd"
+                className="characterEnd"
+              />
+              <p className="popup-title">כל הכבוד {userName} סיימת!</p>
 
-      <button
-        className="popup-end-btn"
-        onClick={() => {
-          setShowPopup(false);
-          endLomda();
-        }}
-      >
-        יאללה לסיים!
-      </button>
-    </div>
-    </div>
-  </div>
-)}
+              <button
+                className="popup-end-btn"
+                onClick={() => {
+                  setShowPopup(false);
+                  endLomda();
+                }}
+              >
+                יאללה לסיים!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="container-buttons">
         <img

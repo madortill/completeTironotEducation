@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-function Pazzle({onProgressChange}) {
-    const [openedGroups, setOpenedGroups] = useState([]);
+function Pazzle({ openedGroups = [], setOpenedGroups, onProgressChange }) {
+    
     const handleGroupClick = (id) => {
         if (!openedGroups.includes(id)) {
           const updated = [...openedGroups, id];

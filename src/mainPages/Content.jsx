@@ -60,10 +60,11 @@ function Content() {
   // מעקב אחרי חסימת עמודים פנימית בנושא
   const [unlockedPages, setUnlockedPages] = useState([
     [true], // מבוא
-    [true, true, true, true, true, true], // חיל החינוך- שני וחמישי
-    [true, false, true, true, true, true, true, true, false, true],
-    [true, true],
+    [true, false, true, true, false, true], // חיל החינוך- שני וחמישי
+    [true, false, true, true, true, true, true, true, false, true], // רוח צהל- שני ותשיעי
+    [true, false, false, true, true],
   ]);
+  
 
   const unlockPage = (subjectIndex, pageIndex) => {
     setUnlockedPages((prev) => {
@@ -110,6 +111,12 @@ function Content() {
       flipAnswers: {},
       flipFlipped: [],
     },
+    idfScroll: {
+      isOpen: false,
+      isOpenGoal: false,
+      openedCount: 0,
+      openedGroups: [],
+    }
   });
   const updateMeetEducationProgress = (changes) => {
     setSubjectsProgress((prev) => ({
@@ -207,7 +214,7 @@ function Content() {
     {
       name: 'מגילת צה"ל',
       component: IDFscroll,
-      pages: 2,
+      pages: 5,
     },
   ];
 
