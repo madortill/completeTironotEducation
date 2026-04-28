@@ -11,48 +11,74 @@ function Content() {
   const [subjNum, setSubjNum] = useState(0);
 
   // אילו נושאים הושלמו
-  const [completedSubjects, setCompletedSubjects] = useState([false, false, false, false]);
+  const [completedSubjects, setCompletedSubjects] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  // נושאים שביקרו בהם
+  const [visitedSubjects, setVisitedSubjects] = useState([
+    true,
+    false,
+    false,
+    false,
+  ]);
 
   // עמודים לכל נושא
   const [subjectPages, setSubjectPages] = useState([0, 0, 0, 0]);
 
-  const setPageForSubject = (index, page) => {
-    setSubjectPages(prev => {
-      const updated = [...prev];
-      updated[index] = page;
-      return updated;
-    });
-  };
+  const subjArr = ["מבוא", "הכירו את חיל החינוך", "רוח צה\"ל", "מגילת צה\"ל"];
 
-  // פונקציה לסימון נושא כהושלם
-  const finishSubject = (index) => {
-    setCompletedSubjects(prev => {
+  // שינוי נושא (הפונקציה המרכזית והיחידה)
+  const changeSubject = (index) => {
+    setSubjNum(index);
+
+    setVisitedSubjects((prev) => {
       const updated = [...prev];
       updated[index] = true;
       return updated;
     });
   };
 
-  const subjArr = [
-    "מבוא",
-    "הכירו את חיל החינוך",
-    "רוח צה\"ל",
-    "מגילת צה\"ל",
-  ];
+  // עדכון עמוד
+  const setPageForSubject = (index, page) => {
+    setSubjectPages((prev) => {
+      const updated = [...prev];
+      updated[index] = page;
+      return updated;
+    });
+  };
 
-  // מעבר לנושא הבא
+  // סימון נושא כהושלם
+  const finishSubject = (index) => {
+    setCompletedSubjects((prev) => {
+      const updated = [...prev];
+      updated[index] = true;
+      return updated;
+    });
+  };
+
+  // מעבר קדימה
   const goToNextSubject = () => {
-    setSubjNum(prev => Math.min(prev + 1, subjArr.length - 1));
+    setSubjNum((prev) => {
+      const next = Math.min(prev + 1, subjArr.length - 1);
+      changeSubject(next);
+      return next;
+    });
   };
 
-  // מעבר לנושא הקודם
+  // מעבר אחורה
   const goToPrevSubject = () => {
-    setSubjNum(prev => Math.max(prev - 1, 0));
+    setSubjNum((prev) => {
+      const next = Math.max(prev - 1, 0);
+      changeSubject(next);
+      return next;
+    });
   };
 
-  // מספר העמודים לכל נושא
-  const totalPagesPerSubject = [2, 2, 2, 2]; // לדוגמה - אפשר להגדיר יותר עמודים בעתיד
-
+  // רינדור נושאים
   const renderSubject = () => {
     switch (subjNum) {
       case 0:
@@ -60,8 +86,11 @@ function Content() {
           <Introduction
             page={subjectPages[0]}
             setPage={(p) => setPageForSubject(0, p)}
-            finishSubject={() => { finishSubject(0); goToNextSubject(); }}
-            totalPages={totalPagesPerSubject[0]}
+            finishSubject={() => {
+              finishSubject(0);
+              goToNextSubject();
+            }}
+            totalPages={2}
           />
         );
 
@@ -70,9 +99,12 @@ function Content() {
           <MeetEducation
             page={subjectPages[1]}
             setPage={(p) => setPageForSubject(1, p)}
-            finishSubject={() => { finishSubject(1); goToNextSubject(); }}
+            finishSubject={() => {
+              finishSubject(1);
+              goToNextSubject();
+            }}
             goToPrevSubject={goToPrevSubject}
-            totalPages={totalPagesPerSubject[1]}
+            totalPages={2}
           />
         );
 
@@ -81,9 +113,12 @@ function Content() {
           <IDFspirit
             page={subjectPages[2]}
             setPage={(p) => setPageForSubject(2, p)}
-            finishSubject={() => { finishSubject(2); goToNextSubject(); }}
+            finishSubject={() => {
+              finishSubject(2);
+              goToNextSubject();
+            }}
             goToPrevSubject={goToPrevSubject}
-            totalPages={totalPagesPerSubject[2]}
+            totalPages={2}
           />
         );
 
@@ -93,7 +128,7 @@ function Content() {
             page={subjectPages[3]}
             setPage={(p) => setPageForSubject(3, p)}
             goToPrevSubject={goToPrevSubject}
-            totalPages={totalPagesPerSubject[3]}
+            totalPages={2}
           />
         );
 
@@ -106,11 +141,13 @@ function Content() {
     <div className="content-page">
       <Navbar
         subjNum={subjNum}
-        setSubjNum={setSubjNum}
+        setSubjNum={changeSubject} // 🔥 חשוב מאוד
         completedSubjects={completedSubjects}
+        resetSubjectPage={(index) => setPageForSubject(index, 0)}
+        visitedSubjects={visitedSubjects}
       />
-      {renderSubject()}
 
+      {renderSubject()}
     </div>
   );
 }

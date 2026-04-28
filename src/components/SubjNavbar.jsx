@@ -1,25 +1,26 @@
 import React from 'react'
 
-function SubjNavbar({ subjNum, setSubjNum, completedSubjects }) {
+function SubjNavbar({ subjNum, setSubjNum, completedSubjects, resetSubjectPage, visitedSubjects }) {
+  console.log("visited:", visitedSubjects); // 👈 כאן
 
-
-const handleClick = (index) => {
-  setSubjNum(index);
-};
+  const handleClick = (index) => {
+    setSubjNum(index);
+    resetSubjectPage(index); // 👈 זה הקסם
+  };
   return (
     <div>
         <svg width="206" height="313" viewBox="0 0 206 287" transform="translate(-40, 0)" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 {/* מבוא */}
 <g
   style={{
-    cursor: completedSubjects[0] || subjNum === 0 ? "pointer" : "default",
+    cursor: visitedSubjects[0] ? "pointer" : "default",
     transformOrigin: "center",
     transform: subjNum === 0 ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.2s, opacity 0.2s",
-    opacity: completedSubjects[0] || subjNum === 0 ? 1 : 0.3
+    opacity: visitedSubjects[0] ? 1 : 0.3
   }}
   onClick={() => {
-    if (completedSubjects[0] || subjNum === 0) handleClick(0);
+    if (visitedSubjects[0]) handleClick(0);
   }}
 >
 
@@ -64,14 +65,14 @@ const handleClick = (index) => {
 {/* הכירו את חיל החינוך */}
 <g
  style={{
-    cursor: completedSubjects[1] || subjNum === 1 ? "pointer" : "default",
+    cursor: visitedSubjects[1] ? "pointer" : "default",
     transformOrigin: "center",
     transform: subjNum === 1 ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.2s, opacity 0.2s",
-    opacity: completedSubjects[1] || subjNum === 1 ? 2 : 0.3
+    opacity: visitedSubjects[1] ? 2 : 0.3
   }}
   onClick={() => {
-    if (completedSubjects[1] || subjNum === 1) handleClick(1);
+    if (visitedSubjects[1]) handleClick(1);
   }}
 >
 
@@ -114,14 +115,14 @@ const handleClick = (index) => {
 {/* רוח צה"ל */}
 <g
 style={{
-    cursor: completedSubjects[2] || subjNum === 2 ? "pointer" : "default",
+    cursor: visitedSubjects[2] ? "pointer" : "default",
     transformOrigin: "center",
     transform: subjNum === 2 ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.2s, opacity 0.2s",
-    opacity: completedSubjects[2] || subjNum === 2 ? 3 : 0.3
+    opacity: visitedSubjects[2] ? 3 : 0.3
   }}
   onClick={() => {
-    if (completedSubjects[2] || subjNum === 2) handleClick(2);
+    if (visitedSubjects[2]) handleClick(2);
   }}
 >
 
@@ -167,14 +168,14 @@ style={{
 {/* מגילת צה"ל */}
 <g
 style={{
-    cursor: completedSubjects[3] || subjNum === 3 ? "pointer" : "default",
+    cursor: visitedSubjects[3] ? "pointer" : "default",
     transformOrigin: "center",
     transform: subjNum === 3 ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.2s, opacity 0.2s",
-    opacity: completedSubjects[3] || subjNum === 3 ? 3 : 0.3
+    opacity: visitedSubjects[3] ? 3 : 0.3
   }}
   onClick={() => {
-    if (completedSubjects[3] || subjNum === 3) handleClick(3);
+    if (visitedSubjects[3]) handleClick(3);
   }}
 >
 
