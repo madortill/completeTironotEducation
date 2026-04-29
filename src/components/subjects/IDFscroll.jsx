@@ -12,9 +12,9 @@ import scrollWithText from "../../assets/images/IDFscroll/scrollWithText.svg";
 import goal from "../../assets/images/meetEducation/goal.png";
 
 import { useCharacter } from "../../context/CharacterContext";
-import fairyStarsIndipendent from "../../assets/images/characters/fairy/starsIndipendent.png";
+import fairyStarsIndipendent from "../../assets/images/characters/fairy/starsIndipendent.svg";
 import elfStarsIndipendent from "../../assets/images/characters/elf/starsIndipendent.png";
-import fairyStarsSpirit from "../../assets/images/characters/fairy/starsSpirit.png";
+import fairyStarsSpirit from "../../assets/images/characters/fairy/starsSpirit.svg";
 import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.png";
 import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.png";
 import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png";
