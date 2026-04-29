@@ -1,5 +1,5 @@
 import React from 'react'
-
+import "../css/Navbar.css";
 function SubjNavbar({ subjNum, setSubjNum, completedSubjects, resetSubjectPage, visitedSubjects }) {
   console.log("visited:", visitedSubjects); // 👈 כאן
 
@@ -9,7 +9,7 @@ function SubjNavbar({ subjNum, setSubjNum, completedSubjects, resetSubjectPage, 
   };
   return (
     <div>
-        <svg width="206" height="313" viewBox="0 0 206 287" transform="translate(-40, 0)" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg width="206" height="313" viewBox="0 0 206 287" className="subjects-navbar-svg" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 {/* מבוא */}
 <g
   style={{

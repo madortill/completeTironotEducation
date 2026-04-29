@@ -63,6 +63,23 @@
   transition: all 1s;
 }
 
+/* .menu-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+} */
+.subjects-navbar-svg {
+  width: 90%;
+  height: auto;
+  display: block;
+  transform: translateX(-30%);
+}
+
+
+
 .menu-icon {
   width: 4rem;
   z-index: 10;
@@ -94,3 +111,21 @@
 .close-btn:hover {
   transform: scale(1.2);
 }
+
+
+
+/* @media (max-width: 380px) {
+  .subjects-navbar-svg {
+    width: 40%;
+    transform: translateX(0);
+  }
+
+  .close-btn {
+    top: 3.5rem;
+    left: 50%;
+  }
+
+  .menu-icon.open {
+    margin-top: -20rem;
+  }
+} */
