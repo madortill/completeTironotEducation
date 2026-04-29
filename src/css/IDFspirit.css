@@ -181,14 +181,14 @@
    
    .progress-text {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0.6rem;
     font-family: rubik;
-    font-size: 18px;
-    color: #333;
+    font-size: 1rem;
+    color: #004288;
   }
   
   .done-text {
-    color: #2e7d32;
+    color: #0e6412;
     font-weight: bold;
   }
    .change-bag-size {
@@ -204,46 +204,12 @@
    }
    
    .textFront {
-       font-size: 1.1rem;
+       font-size: 1rem;
        font-family: "rubik-bold";
    }
    
-   /* @media (max-width: 350px) {
-       .flip-card {
-           width: 9.5rem;
-           height: 13rem;
-       }
-       .textFront {
-           font-size: 1.8rem;
-       }
-       .textBack {
-           padding: 3%;
-           font-size: 0.75rem;
-       }
-       
-   }
-   @media (max-height: 750px) {
-       .flip-card {
-           width: 9.5rem;
-           height: 13rem;
-       }
-       .textFront {
-           font-size: 1.8rem;
-       }
-       .textBack {
-           padding: 3%;
-           font-size: 0.75rem;
-       }
-   }
-   @media (max-height: 700px) {
-       .flip-card {
-           height: 12rem;
-       }
-       .textBack {
-           padding: 2%;
-           font-size: 0.7rem;
-       }
-   } */
+
+
 
    
   .cards-wrapper {
@@ -291,15 +257,69 @@
     margin-top: -10.6rem;
     margin-right: 4.5rem;
 }
+@media (max-height: 750px) {
+
+}
 
 
 
 
-
-
-  @media (max-width: 350px) {
+  /* @media (max-width: 350px) {
     .cards-wrapper {
         gap: 0.5rem 2rem;
+        
       }
     
+} */
+@media (min-width: 350px) and (max-height: 765px) {
+.cards-wrapper {
+  width: 23rem;
 }
+.cards-navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: -3rem;
+  width: 23rem;
+}
+.textFront {
+  font-size: 3rem;
+  font-family: "rubik-bold";
+}
+}
+@media (max-width: 350px) {
+  .flip-card {
+       width: 6.8rem;
+       height: 4.5rem;
+
+   }
+   .textFront {
+    font-size: 0.9rem;
+    font-family: "rubik-bold";
+}
+     
+ }
+ @media (max-height: 765px) {
+  .flip-card {
+       width: 6rem;
+       height: 3.5rem;
+
+   }
+   .textFront {
+    font-size: 0.85rem;
+    font-family: "rubik-bold";
+}
+.commentImg {
+  width: 11rem;
+}
+.comment-hard-text {
+  color: white;
+  font-family: "rubik";
+
+  width: 6rem;
+  font-size: 0.8rem;
+  margin-top: -9.2rem;
+  margin-right: 3.5rem;
+}
+ }

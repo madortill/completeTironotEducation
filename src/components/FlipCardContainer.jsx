@@ -95,7 +95,7 @@ function FlipCardContainer({
   {!isDone ? (
     <p>נשארו עוד {remaining} תשובות</p>
   ) : (
-    <p className="done-text">מעולה! אפשר להמשיך ✔</p>
+    <p className="done-text">מעולה! אפשר להמשיך</p>
   )}
 </div>
       <div className="cards-navigation">

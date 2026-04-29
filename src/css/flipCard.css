@@ -1,6 +1,6 @@
 .flip-card {
  background-color: transparent;
-    width: 7rem;
+    width: 6rem;
     height: 5rem;
     perspective: 1000px;
     flex-shrink: 0; /* מונע כיווץ */

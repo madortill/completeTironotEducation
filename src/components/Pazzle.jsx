@@ -2,18 +2,23 @@ import React, { useState } from "react";
 
 function Pazzle({ openedGroups = [], setOpenedGroups, onProgressChange }) {
     
-    const handleGroupClick = (id) => {
-        if (!openedGroups.includes(id)) {
-          const updated = [...openedGroups, id];
-          setOpenedGroups(updated);
-      
-          // שליחה לאבא
-          onProgressChange(updated.length);
-        }
-      }; 
+  const handleGroupClick = (id) => {
+    let updated;
+  
+    if (openedGroups.includes(id)) {
+      // ❌ כבר פתוח → נסיר (סגירה)
+      updated = openedGroups.filter((item) => item !== id);
+    } else {
+      // ✅ סגור → נפתח
+      updated = [...openedGroups, id];
+    }
+  
+    setOpenedGroups(updated);
+    onProgressChange(updated.length);
+  };
   return (
-    <div> 
-      <svg width="350" height="308" viewBox="0 0 350 308" fill="none" transform="translate(0, 10)" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <div className="pazzle-container"> 
+      <svg className="pazzle-svg" viewBox="0 0 350 308" fill="none" transform="translate(0, 10)" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 
 <rect x="280.25" y="206.25" width="69.5" height="101.5" fill="url(#pattern0_298_25)" stroke="black" strokeWidth="0.5"/>
 
