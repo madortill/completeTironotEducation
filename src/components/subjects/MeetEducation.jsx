@@ -7,13 +7,13 @@ import ArrayShield from "../../components/ArrayShield";
 
 import sparkleSound from "../../assets/audio/sparkle.mp3";
 
-import fairyBubbleTalk from "../../assets/images/characters/fairy/bubbleTalk.png";
-import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.png";
-import fairyComment from "../../assets/images/characters/fairy/comment.png";
-import elfComment from "../../assets/images/characters/elf/comment.png";
+import fairyBubbleTalk from "../../assets/images/characters/fairy/bubbleTalk.svg";
+import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.svg";
+import fairyComment from "../../assets/images/characters/fairy/comment.svg";
+import elfComment from "../../assets/images/characters/elf/comment.svg";
 import arrayEduImg from "../../assets/images/meetEducation/arrayEduImg.png";
-import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.png";
-import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png";
+import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.svg";
+import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.svg";
 import arrayShieldImg from "../../assets/images/meetEducation/arrayShieldImg.png";
 import viArrays from "../../assets/images/meetEducation/viArrays.png";
 import bubbleTivoh from "../../assets/images/meetEducation/tivoh.svg";
@@ -211,7 +211,7 @@ const updateArrayProgress = (arrayName, changes) => {
           <img
             src={characterImg2}
             alt="chosen character"
-            className="commentImg"
+            className="commentImg-bahad"
           />
           <p className="comment-text">ממש איפה שאתם עכשיו!</p>
         </div>

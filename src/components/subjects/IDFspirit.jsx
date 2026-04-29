@@ -12,9 +12,12 @@ import spiritParts from "../../assets/images/IDFspirit/spiritParts.svg";
 import popUpValues from "../../assets/images/IDFspirit/popUpValues.svg";
 import btnHard from "../../assets/images/IDFspirit/btnHard.png";
 
+import sparkleSound from "../../assets/audio/sparkle.mp3";
+
 import { useCharacter } from "../../context/CharacterContext";
-import fairyComment from "../../assets/images/characters/fairy/comment.png";
-import elfComment from "../../assets/images/characters/elf/comment.png";
+import { useLearningProgress } from "../../context/LearningProgressContext";
+import fairyComment from "../../assets/images/characters/fairy/comment.svg";
+import elfComment from "../../assets/images/characters/elf/comment.svg";
 
 import "../../css/IDFspirit.css";
 import FlipCardContainer from "../../components/FlipCardContainer.jsx";
@@ -33,6 +36,8 @@ function IDFspirit({
   const [showStars, setShowStars] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
+  const { learningProgress } = useLearningProgress();
+const isEducationCourse = learningProgress.userDetails.course === "חינוך";
   const {
     text,
     isSubmitted,
@@ -53,6 +58,17 @@ function IDFspirit({
       setShowStars(false); // אם לא בעמוד 0, לא להראות כוכבים
     }
   }, [page]);
+
+  useEffect(() => {
+    if (showStars) {
+      const audio = new Audio(sparkleSound);
+      audio.volume = 0.6; // אופציונלי
+      audio.play().catch(() => {
+        // מונע קריסה אם הדפדפן חוסם autoplay
+      });
+    }
+  }, [showStars]);
+
   const totalPages = 10; // מספר העמודים בנושא
   const progressValue = page === 0 ? 0 : page;
   const totalProgressPages = totalPages - 1;
@@ -293,8 +309,10 @@ function IDFspirit({
             למדנו מהי רוח צה"ל, ולמה חשוב שיובילו אותנו ערכים בעת ביצוע המשימה.{" "}
           </p>
           <p className="text-content">
-            תפקידכם כמש"קי חינוך יהיה להטמיע אותם ביחידות אליהן תגיעו! וכמובן,
-            מי מכם שיהיה מש"ק הסברה יקדם ערכים אלו בהסברות שיעביר.
+          {isEducationCourse
+    ? `תפקידכם כמש"קי חינוך יהיה להטמיע אותם ביחידות אליהן תגיעו! וכמובן,
+       מי מכם שיהיה מש"ק הסברה יקדם ערכים אלו בהסברות שיעביר.`
+    : `חלק מתפקידכם כחיילים לעתיד בחיל החינוך יהיה להטמיע ולפעול לפי ערכים אלו במקומות אליהם תגיעו בשירותכם הצבאי!`}
           </p>
           <img
             className={`btnHard ${!showComment ? "grow-shrink" : ""}`}

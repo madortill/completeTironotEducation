@@ -14,9 +14,9 @@
 }
 .progress-bar-container {
   position: absolute;
-  top: 11.5%;
+  top: calc(4.5rem + 10px); /* גובה הנאב + רווח */
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 
   width: 120px;
   height: 6px;
@@ -112,7 +112,7 @@
 }
 
 /* עמוד רביעי */
-.commentImg {
+.commentImg-bahad {
     width: 13rem;
     margin-top: 1rem;
 }
@@ -444,12 +444,14 @@ width: 8rem;
     margin-top: 1rem;
 }
 
+
 .bubble-text {
     top: -23rem;
     font-size: 1.1rem;
     width: 13rem;
 
 }
+
 
 .professeion-edu-contianer {
   width: 15rem;

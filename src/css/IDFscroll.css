@@ -232,6 +232,7 @@ opacity: 0;
   display: block;
   }
 
+
 @media (max-width: 375px) {
   .closeScroll {
     margin-top: 2rem;
@@ -243,6 +244,17 @@ opacity: 0;
     width: 13.5rem;
   
   }
+  .starsInd {
+    width: 25rem;
+  }
+
+}
+@media (max-width: 340px) {
+
+  .starsInd {
+    width: 20rem;
+  }
+
 }
 @media (max-height: 800px) {
 
@@ -290,6 +302,12 @@ opacity: 0;
   .pazzle-svg {
     width: 75%;
     padding: 0rem 0rem;
+    }
+    .starsInd {
+      width: 25rem;
+    }
+    .starsSpirit {
+      width: 18rem;
     }
 }
 @media (max-height: 760px) {
@@ -343,5 +361,7 @@ opacity: 0;
     padding: 0rem 0rem;
     }
 
-    
+    .starsInd {
+      width: 23rem;
+    }
 }

@@ -3,6 +3,10 @@ import React, { createContext, useContext, useState } from "react";
 const LearningProgressContext = createContext(null);
 
 const initialLearningProgress = {
+    userDetails: {
+        userName: "",
+        course: "",
+      },
   subjNum: 0,
 
   completedSubjects: [false, false, false, false],
@@ -15,7 +19,7 @@ const initialLearningProgress = {
     [true], // מבוא
     [true, true, true, true, true, true], // חיל החינוך- 2,5
     [true, true, true, true, true, true, true, true, true, true], // רוח צה"ל 2,9
-    [true, false, false, true, true], // מגילת צה"ל
+    [true, true, true, true, true], // מגילת צה"ל 2,3
   ],
 
   subjectsProgress: {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/meetEducation.css";
 import TreeJobs from "../components/TreeJobs";
+import { useLearningProgress } from "../context/LearningProgressContext";
 
 import goal from "../assets/images/meetEducation/goal.png";
 import nextBtn from "../assets/images/introduction/nextBtn.png";
@@ -8,6 +9,8 @@ import backBtn from "../assets/images/introduction/backBtn.png";
 
 function ArrayShield({ finish, progress, setProgress }) {
   const [openGoal, setOpenGoal] = useState(false);
+  const { learningProgress } = useLearningProgress();
+  const isEducationCourse = learningProgress.userDetails.course === "חינוך";
   const {
     innerPage,
     hasClickedGoal,
@@ -21,7 +24,11 @@ function ArrayShield({ finish, progress, setProgress }) {
 
   // תנאי לכפתור
   const canFinish =
-    innerPage === 0 ? hasClickedGoal && hasClickedBtn : allApplesDone;
+  innerPage === 0
+    ? isEducationCourse
+      ? hasClickedGoal && hasClickedBtn
+      : hasClickedGoal
+    : allApplesDone;
   // ניווט פנימי
   const handleNextInner = () => {
     if (innerPage === 0 && canFinish) {
@@ -52,7 +59,7 @@ function ArrayShield({ finish, progress, setProgress }) {
             onClick={() => setOpenGoal(true)}
           />
 
-          {hasClickedGoal && (
+          {hasClickedGoal && isEducationCourse && (
             <div
               className={!hasAnimated ? "fade-in" : ""}
               onAnimationEnd={() => setProgress({ hasAnimated: true })}

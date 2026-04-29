@@ -7,7 +7,7 @@ const CharacterContext = createContext();
 // Provider שמספק את הדמות הנבחרת ושינוי שלה
 export const CharacterProvider = ({ children }) => {
   // ברירת מחדל – פיה
-  const [character, setCharacter] = useState("fairy");
+  const [character, setCharacter] = useState("elf");
 
   return (
     <CharacterContext.Provider value={{ character, setCharacter }}>

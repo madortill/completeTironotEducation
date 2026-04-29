@@ -6,24 +6,28 @@ import Pazzle from "../../components/Pazzle";
 import "../../css/IDFscroll.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useLearningProgress } from "../../context/LearningProgressContext";
 
 import closeScroll from "../../assets/images/IDFscroll/closeScroll.png";
 import scrollWithText from "../../assets/images/IDFscroll/scrollWithText.svg";
 import goal from "../../assets/images/meetEducation/goal.png";
 
+import sparkleSound from "../../assets/audio/sparkle.mp3";
+
 import { useCharacter } from "../../context/CharacterContext";
 import fairyStarsIndipendent from "../../assets/images/characters/fairy/starsIndipendent.svg";
-import elfStarsIndipendent from "../../assets/images/characters/elf/starsIndipendent.png";
+import elfStarsIndipendent from "../../assets/images/characters/elf/starsIndipendent.svg";
 import fairyStarsSpirit from "../../assets/images/characters/fairy/starsSpirit.svg";
-import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.png";
-import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.png";
-import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.png";
+import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.svg";
+import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.svg";
+import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.svg";
 
 function IDFscroll({
   page,
   goNext,
   goBack,
   isNextUnlocked,
+  finishSubject,
   unlockCurrentPage,
   progress,
   setProgress,
@@ -34,7 +38,8 @@ function IDFscroll({
   const [showPopup, setShowPopup] = useState(false);
   const openedGroupsCount = openedGroups.length;
   const location = useLocation();
-  const userName = location.state?.userName;
+  const { learningProgress } = useLearningProgress();
+  const userName = learningProgress.userDetails.userName;
 
   useEffect(() => {
     if (page === 0) {
@@ -45,6 +50,17 @@ function IDFscroll({
       setShowStars(false); // אם לא בעמוד 0, לא להראות כוכבים
     }
   }, [page]);
+
+  useEffect(() => {
+    if (showStars) {
+      const audio = new Audio(sparkleSound);
+      audio.volume = 0.6; // אופציונלי
+      audio.play().catch(() => {
+        // מונע קריסה אם הדפדפן חוסם autoplay
+      });
+    }
+  }, [showStars]);
+
   const totalPages = 5; // מספר העמודים בנושא
   const progressValue = page === 0 ? 0 : page;
   const totalProgressPages = totalPages - 1;
@@ -71,6 +87,7 @@ function IDFscroll({
   const characterEnd = character === "fairy" ? fairyBubbles : elfBubbles;
 
   const endLomda = () => {
+    finishSubject();
     navigate("/end", {});
   };
 
@@ -84,8 +101,7 @@ function IDFscroll({
     }
   }, [page, isOpenGoal, openedGroupsCount, isNextUnlocked]);
   // תנאים לכפתור
-  const isNextDisabled =
-    (page === 1 && !isOpenGoal) || (page === 2 && openedGroupsCount < 15);
+  const isNextDisabled = !isNextUnlocked;
 
   return (
     <div>
@@ -187,7 +203,7 @@ function IDFscroll({
         <div className=" page page4">
           <p className="title-content">מגילת צה"ל בהשוואה</p>
           <p className="sec-title-content">מגילת העצמאות ומגילת צה"ל</p>
-          <img src={characterImg} alt="chosen character" />
+          <img src={characterImg} alt="chosen character" className="starsInd" />
         </div>
       )}
 
@@ -195,7 +211,7 @@ function IDFscroll({
         <div className=" page page5">
           <p className="title-content">מגילת צה"ל בהשוואה</p>
           <p className="sec-title-content">מגילת העצמאות ומגילת צה"ל</p>
-          <img src={characterImg2} alt="chosen character" />
+          <img src={characterImg2} alt="chosen character" className="starsSpirit" />
         </div>
       )}
       {showPopup && (
