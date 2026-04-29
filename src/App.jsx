@@ -14,13 +14,12 @@ function App() {
     <>
       <div className="app">
       <img src={bahadEduIcon} alt="icon"  className="bahadEdu" />
-     
+      
       <Routes>
       <Route path="/" element={<OpeningPage/>} />
       <Route path="/content" element={<Content/>} />
       <Route path="/end" element={<EndPage/>} />
     </Routes>
-      
       <img src={til} alt="til" className="til-logo" />
       </div>
     </>

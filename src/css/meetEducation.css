@@ -471,7 +471,7 @@ width: 8rem;
   flex-direction: row;
   justify-content: space-between;
   width: 14rem;
-  margin-top: -1rem;
+  margin-top: -0.4rem;
 }
 
 .arrow-right {
@@ -481,4 +481,38 @@ width: 8rem;
 .arrow-left {
   width: 1.5rem;
 }
+}
+@media (max-height: 750px) {
+  .professeion-edu-contianer {
+    width: 18rem;
+    padding: 1rem 0.5rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .text-swich {
+    font-family: "rubik";
+    color: #477fa3;
+    font-size: 0.8rem;
+    padding: 0.2rem;
+  }
+  .arrows-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 15rem;
+    margin-top: 0.2rem;
+  }
+  
+  .arrow-right {
+    width: 1.3rem;
+    transform: rotate(180deg);
+  }
+  .arrow-left {
+    width: 1.3rem;
+  }
+
+
 }
