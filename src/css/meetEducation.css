@@ -331,9 +331,10 @@ width: 8rem;
   pointer-events: none;
 }
 .disabled-btn-edu {
-  opacity: 0.4;
+  opacity: 0.5;
   pointer-events: none;
-  background-color: #00428800;
+  /* background-color: #00428800; */
+  filter: grayscale(100%);
 }
 
 .locked {

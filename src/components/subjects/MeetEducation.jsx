@@ -9,11 +9,19 @@ import sparkleSound from "../../assets/audio/sparkle.mp3";
 
 import fairyBubbleTalk from "../../assets/images/characters/fairy/bubbleTalk.svg";
 import elfBubbleTalk from "../../assets/images/characters/elf/bubbleTalk.svg";
+import fairyBubbleTalkBrown from "../../assets/images/characters/fairyBrown/bubbleTalk.svg";
+import elfBubbleTalkBrown from "../../assets/images/characters/elfBrown/bubbleTalk.svg";
+
 import fairyComment from "../../assets/images/characters/fairy/comment.svg";
 import elfComment from "../../assets/images/characters/elf/comment.svg";
+import fairyCommentBrown from "../../assets/images/characters/fairyBrown/comment.svg";
+import elfCommentBrown from "../../assets/images/characters/elfBrown/comment.svg";
+
 import arrayEduImg from "../../assets/images/meetEducation/arrayEduImg.png";
 import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.svg";
 import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.svg";
+import fairyBubblesBrown from "../../assets/images/characters/fairyBrown/bubblesCharacter.svg";
+import elfBubblesBrown from "../../assets/images/characters/elfBrown/bubblesCharacter.svg";
 import arrayShieldImg from "../../assets/images/meetEducation/arrayShieldImg.png";
 import viArrays from "../../assets/images/meetEducation/viArrays.png";
 import bubbleTivoh from "../../assets/images/meetEducation/tivoh.svg";
@@ -85,13 +93,34 @@ function MeetEducation({
   //   }
   // };
 
-  const { character } = useCharacter();
+  const { character, isGadna } = useCharacter();
 
-  const characterImg = character === "fairy" ? fairyBubbleTalk : elfBubbleTalk;
+  const characterImg =
+  character === "fairy"
+    ? isGadna
+      ? fairyBubbleTalkBrown
+      : fairyBubbleTalk
+    : isGadna
+      ? elfBubbleTalkBrown
+      : elfBubbleTalk;
 
-  const characterImg2 = character === "fairy" ? fairyComment : elfComment;
+const characterImg2 =
+  character === "fairy"
+    ? isGadna
+      ? fairyCommentBrown
+      : fairyComment
+    : isGadna
+      ? elfCommentBrown
+      : elfComment;
 
-  const characterImgbubbles = character === "fairy" ? fairyBubbles : elfBubbles;
+const characterImgbubbles =
+  character === "fairy"
+    ? isGadna
+      ? fairyBubblesBrown
+      : fairyBubbles
+    : isGadna
+      ? elfBubblesBrown
+      : elfBubbles;
 
   // בחירת מערך
   const {

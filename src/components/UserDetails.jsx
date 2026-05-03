@@ -1,7 +1,11 @@
 import React from "react";
 import { useCharacter } from "../context/CharacterContext";
-import fairyDetailsImg from "../assets/images/characters/fairy/detailsImg.png";
-import elfDetailsImg from "../assets/images/characters/elf/detailsImg.png";
+
+import fairyDetailsImg from "../assets/images/characters/fairy/detailsImg.svg";
+import elfDetailsImg from "../assets/images/characters/elf/detailsImg.svg";
+
+import fairyBrownDetailsImg from "../assets/images/characters/fairyBrown/detailsImg.svg";
+import elfBrownDetailsImg from "../assets/images/characters/elfBrown/detailsImg.svg";
 
 function UserDetails({
   userName,
@@ -12,16 +16,34 @@ function UserDetails({
   nameError,
   courseError
 }) {
-
-  const { character, setCharacter } = useCharacter();
+  const {
+    character,
+    setCharacter,
+    setSelectedCourse,
+    isGadna
+  } = useCharacter();
 
   const detailsImg =
     character === "fairy"
-      ? fairyDetailsImg
-      : elfDetailsImg;
+      ? isGadna
+        ? fairyBrownDetailsImg
+        : fairyDetailsImg
+      : isGadna
+        ? elfBrownDetailsImg
+        : elfDetailsImg;
 
   const toggleCharacter = () => {
     setCharacter(character === "fairy" ? "elf" : "fairy");
+  };
+
+  const handleCourseChange = (e) => {
+    const selectedValue = e.target.value;
+
+    // שומר ב-state הרגיל של הקומפוננטה/הורה
+    setCourse(selectedValue);
+
+    // שומר גם ב-Context כדי שכל הלומדה תדע איזה קורס נבחר
+    setSelectedCourse(selectedValue);
   };
 
   return (
@@ -42,7 +64,6 @@ function UserDetails({
         />
 
         <div className="user-inputs">
-
           <p className="input-title">שם:</p>
 
           <input
@@ -61,7 +82,7 @@ function UserDetails({
 
           <select
             value={course}
-            onChange={(e) => setCourse(e.target.value)}
+            onChange={handleCourseChange}
             className="input-field"
           >
             <option value="">בחר קורס</option>
@@ -71,13 +92,11 @@ function UserDetails({
                 {c}
               </option>
             ))}
-
           </select>
 
           {courseError && (
             <p className="error-text">{courseError}</p>
           )}
-
         </div>
 
         <div
@@ -88,7 +107,6 @@ function UserDetails({
             החלף דמות
           </p>
         </div>
-
       </div>
     </div>
   );

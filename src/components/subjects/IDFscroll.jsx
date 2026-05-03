@@ -21,6 +21,14 @@ import fairyStarsSpirit from "../../assets/images/characters/fairy/starsSpirit.s
 import elfStarsSpirit from "../../assets/images/characters/elf/starsSpirit.svg";
 import fairyBubbles from "../../assets/images/characters/fairy/bubblesCharacter.svg";
 import elfBubbles from "../../assets/images/characters/elf/bubblesCharacter.svg";
+import fairyBrownStarsIndipendent from "../../assets/images/characters/fairyBrown/starsIndipendent.svg";
+import elfBrownStarsIndipendent from "../../assets/images/characters/elfBrown/starsIndipendent.svg";
+
+import fairyBrownStarsSpirit from "../../assets/images/characters/fairyBrown/starsSpirit.svg";
+import elfBrownStarsSpirit from "../../assets/images/characters/elfBrown/starsSpirit.svg";
+
+import fairyBrownBubbles from "../../assets/images/characters/fairyBrown/bubblesCharacter.svg";
+import elfBrownBubbles from "../../assets/images/characters/elfBrown/bubblesCharacter.svg";
 
 function IDFscroll({
   page,
@@ -77,14 +85,44 @@ function IDFscroll({
   const handleBack = () => {
     goBack();
   };
-  // הדמות
-  const { character } = useCharacter();
 
-  const characterImg =
-    character === "fairy" ? fairyStarsIndipendent : elfStarsIndipendent;
-  const characterImg2 =
-    character === "fairy" ? fairyStarsSpirit : elfStarsSpirit;
-  const characterEnd = character === "fairy" ? fairyBubbles : elfBubbles;
+  // דמות
+  const { character, isGadna: isGadnaFromContext = false } = useCharacter();
+
+const selectedCourse = learningProgress?.userDetails?.course || "";
+const normalizedCourse = selectedCourse.replace(/[״"]/g, "");
+
+const isGadna =
+  isGadnaFromContext ||
+  selectedCourse === "gadna" ||
+  normalizedCourse.includes("גדנע");
+
+const characterImg =
+  character === "fairy"
+    ? isGadna
+      ? fairyBrownStarsIndipendent
+      : fairyStarsIndipendent
+    : isGadna
+      ? elfBrownStarsIndipendent
+      : elfStarsIndipendent;
+
+const characterImg2 =
+  character === "fairy"
+    ? isGadna
+      ? fairyBrownStarsSpirit
+      : fairyStarsSpirit
+    : isGadna
+      ? elfBrownStarsSpirit
+      : elfStarsSpirit;
+
+const characterEnd =
+  character === "fairy"
+    ? isGadna
+      ? fairyBrownBubbles
+      : fairyBubbles
+    : isGadna
+      ? elfBrownBubbles
+      : elfBubbles;
 
   const endLomda = () => {
     finishSubject();

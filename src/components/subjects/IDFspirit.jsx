@@ -18,6 +18,8 @@ import { useCharacter } from "../../context/CharacterContext";
 import { useLearningProgress } from "../../context/LearningProgressContext";
 import fairyComment from "../../assets/images/characters/fairy/comment.svg";
 import elfComment from "../../assets/images/characters/elf/comment.svg";
+import fairyBrownComment from "../../assets/images/characters/fairyBrown/comment.svg";
+import elfBrownComment from "../../assets/images/characters/elfBrown/comment.svg";
 
 import "../../css/IDFspirit.css";
 import FlipCardContainer from "../../components/FlipCardContainer.jsx";
@@ -37,7 +39,8 @@ function IDFspirit({
   const [showPopup, setShowPopup] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const { learningProgress } = useLearningProgress();
-const isEducationCourse = learningProgress.userDetails.course === "חינוך";
+  const selectedCourse = learningProgress?.userDetails?.course || "";
+  const isEducationCourse = selectedCourse === "חינוך";
   const {
     text,
     isSubmitted,
@@ -106,9 +109,23 @@ const isEducationCourse = learningProgress.userDetails.course === "חינוך";
     setProgress({ isSubmitted: true });
   };
 
-  const { character } = useCharacter();
+  const { character, isGadna: isGadnaFromContext = false } = useCharacter();
 
-  const characterImg = character === "fairy" ? fairyComment : elfComment;
+  const normalizedCourse = selectedCourse.replace(/[״"]/g, "");
+
+  const isGadna =
+    isGadnaFromContext ||
+    selectedCourse === "gadna" ||
+    normalizedCourse.includes("גדנע");
+
+  const characterImg =
+    character === "fairy"
+      ? isGadna
+        ? fairyBrownComment
+        : fairyComment
+      : isGadna
+        ? elfBrownComment
+        : elfComment;
 
   // תנאי לכפתור
   const isNextDisabled = !isNextUnlocked;
