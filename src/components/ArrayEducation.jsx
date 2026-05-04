@@ -152,7 +152,7 @@ function ArrayEducation({ finish, progress, setProgress }) {
           }}
         >
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <p className="goal-text-title">מטרת המערך</p>
+            <p className="goal-text-title">מטרת מערך החינוך</p>
 
             <p className="goal-text">
               מערך הנועד לענות על ייעודו של חיל החינוך בעיקר בתחום

@@ -140,7 +140,7 @@ const characterImg2 =
           }}
         >
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <p className="goal-text-title">מטרת מערך המגן</p>
+            <p className="goal-text-title">מטרת מערך מגן</p>
 
             <p className="goal-text">
               מערך הנועד לענות על ייעודו של חיל החינוך בעיקר בתחום הלאומי-חברתי.
