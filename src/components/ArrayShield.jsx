@@ -6,6 +6,11 @@ import { useLearningProgress } from "../context/LearningProgressContext";
 import goal from "../assets/images/meetEducation/goal.png";
 import nextBtn from "../assets/images/introduction/nextBtn.png";
 import backBtn from "../assets/images/introduction/backBtn.png";
+import { useCharacter } from "../context/CharacterContext";
+import fairyComment from "../assets/images/characters/fairy/comment.svg";
+import elfComment from "../assets/images/characters/elf/comment.svg";
+import fairyCommentBrown from "../assets/images/characters/fairyBrown/comment.svg";
+import elfCommentBrown from "../assets/images/characters/elfBrown/comment.svg";
 
 function ArrayShield({ finish, progress, setProgress }) {
   const [openGoal, setOpenGoal] = useState(false);
@@ -43,6 +48,18 @@ function ArrayShield({ finish, progress, setProgress }) {
       setProgress({ innerPage: 0 });
     }
   };
+  const { character, isGadna } = useCharacter();
+
+
+const characterImg2 =
+  character === "fairy"
+    ? isGadna
+      ? fairyCommentBrown
+      : fairyComment
+    : isGadna
+      ? elfCommentBrown
+      : elfComment;
+
 
   return (
     <div className="page">
@@ -58,6 +75,16 @@ function ArrayShield({ finish, progress, setProgress }) {
             }`}
             onClick={() => setOpenGoal(true)}
           />
+{hasClickedGoal && !isEducationCourse && (
+  <>
+    <img
+      src={characterImg2}
+      alt="chosen character"
+      className="commentImg-bahad"
+    />
+    <p className="comment-text">זה המערך אליו אתם תשתייכו!</p>
+  </>
+)}
 
           {hasClickedGoal && isEducationCourse && (
             <div
