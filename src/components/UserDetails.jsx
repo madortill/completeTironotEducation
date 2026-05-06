@@ -99,14 +99,14 @@ function UserDetails({
           )}
         </div>
 
-        <div
+        {/* <div
           className="btn-character-div"
           onClick={toggleCharacter}
         >
           <p className="change-btn">
             החלף דמות
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
